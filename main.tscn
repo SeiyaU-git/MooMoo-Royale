@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6dkyo6lkvxpf"]
+
+[ext_resource type="PackedScene" uid="uid://cj3ki0ann1avg" path="res://UI/start_ui.tscn" id="1_ig7tw"]
+[ext_resource type="PackedScene" uid="uid://pfwya8vngey" path="res://player_spawner.tscn" id="2_0xm2m"]
+
+[node name="Main" type="Node2D"]
+
+[node name="StartUI" parent="." instance=ExtResource("1_ig7tw")]
+
+[node name="PlayerSpawner" parent="." instance=ExtResource("2_0xm2m")]
