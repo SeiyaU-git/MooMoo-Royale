@@ -10,7 +10,7 @@ func _ready() -> void:
 func spawn_player(id: int) -> void:
 	var player = PLAYER.instantiate()
 	player.owner_id = id
-	player.name = str(id) # CHANGE LATER
+	player.name = str("SEIYA id: ", id) # CHANGE LATER
 	
 	call_deferred("add_child", player)
 	print("PLAYER SPAWNED")
