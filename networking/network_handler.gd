@@ -23,45 +23,39 @@ var is_server: bool = false
 
 func _process(delta: float) -> void:
 	if connection == null: return
+	
+	# HANDLE EVENTS
+	if is_server:
+		handle_server_evens()
+	else:
+		handle_client_evens()
 
-	handle_events()
 
-
-func handle_events() -> void:
+########## SERVER ##########
+func handle_server_evens():
 	var packet_event: Array = connection.service()
 	var event_type: ENetConnection.EventType = packet_event[0]
 
 	while event_type != ENetConnection.EVENT_NONE:
 		var peer: ENetPacketPeer = packet_event[1]
-
 		match (event_type):
 			ENetConnection.EVENT_ERROR:
 				push_warning("Package resulted in an unknown error!")
 				return
 
 			ENetConnection.EVENT_CONNECT:
-				if is_server:
 					peer_connected(peer)
-				else:
-					connected_to_server()
 
 			ENetConnection.EVENT_DISCONNECT:
-				if is_server:
 					peer_disconnected(peer)
-				else:
-					disconnected_from_server()
-					return # Return because connection was set to null
 
 			ENetConnection.EVENT_RECEIVE:
-				if is_server:
 					on_server_packet.emit(peer.get_meta("id"), peer.get_packet())
-				else:
-					on_client_packet.emit(peer.get_packet())
+					#sends the packet to the server glbals
 
 		# Call service() again to handle remaining packets in current while loop
 		packet_event = connection.service()
 		event_type = packet_event[0]
-
 
 func start_server(ip_address: String = "127.0.0.1", port: int = 42069) -> void:
 	connection = ENetConnection.new()
@@ -74,7 +68,6 @@ func start_server(ip_address: String = "127.0.0.1", port: int = 42069) -> void:
 	print("Server started")
 	is_server = true
 
-
 func peer_connected(peer: ENetPacketPeer) -> void:
 	var peer_id: int = available_peer_ids.pop_back()
 	peer.set_meta("id", peer_id)
@@ -83,7 +76,6 @@ func peer_connected(peer: ENetPacketPeer) -> void:
 	print("Peer connected with assigned id: ", peer_id)
 	on_peer_connected.emit(peer_id)
 
-
 func peer_disconnected(peer: ENetPacketPeer) -> void:
 	var peer_id: int = peer.get_meta("id")
 	available_peer_ids.push_back(peer_id)
@@ -91,6 +83,36 @@ func peer_disconnected(peer: ENetPacketPeer) -> void:
 
 	print("Succesfully disconnected: ", peer_id, " from server!")
 	on_peer_disconnected.emit(peer_id)
+
+
+
+########## CLIENT ##########
+func handle_client_evens():
+	var packet_event: Array = connection.service()
+	var event_type: ENetConnection.EventType = packet_event[0]
+
+	while event_type != ENetConnection.EVENT_NONE:
+		var peer: ENetPacketPeer = packet_event[1]
+
+		match (event_type):
+			ENetConnection.EVENT_ERROR:
+				push_warning("Package resulted in an unknown error!")
+				return
+
+			ENetConnection.EVENT_CONNECT:
+					connected_to_server()
+
+			ENetConnection.EVENT_DISCONNECT:
+					disconnected_from_server()
+					return # Return because connection was set to null
+
+			ENetConnection.EVENT_RECEIVE:
+				on_client_packet.emit(peer.get_packet())
+				# sends packet to client globals
+
+		# Call service() again to handle remaining packets in current while loop
+		packet_event = connection.service()
+		event_type = packet_event[0]
 
 
 func start_client(ip_address: String = "127.0.0.1", port: int = 42069) -> void:
@@ -104,17 +126,14 @@ func start_client(ip_address: String = "127.0.0.1", port: int = 42069) -> void:
 	print("Client started")
 	server_peer = connection.connect_to_host(ip_address, port)
 
-
 func disconnect_client() -> void:
 	if is_server: return
 
 	server_peer.peer_disconnect()
 
-
 func connected_to_server() -> void:
 	print("Successfully connected to server!")
 	on_connected_to_server.emit()
-
 
 func disconnected_from_server() -> void:
 	print("Successfully disconnected from server!")
