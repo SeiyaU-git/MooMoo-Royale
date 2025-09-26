@@ -21,6 +21,7 @@ func on_peer_connected(peer_id: int) -> void:
 	
 	#DATA GETS CREATED AND BROADCASTED
 	IDAssignment.create(peer_id, peer_ids).broadcast(NetworkHandler.connection)
+	print("id ", peer_id, "now sucsessfully in use by the server")
 
 func handle_player_spawn(player_spawn: PlayerSpawn):
 	var _id = player_spawn.id
@@ -34,8 +35,8 @@ func handle_player_spawn(player_spawn: PlayerSpawn):
 func on_peer_disconnected(peer_id: int) -> void:
 	peer_ids.erase(peer_id)
 
-	# Create IDUnassignment to broadcast to all still connected peers
-
+	IDUnassignment.create(peer_id).broadcast(NetworkHandler.connection)
+	print("id", peer_id, "has been deleted on the server side and is avalable for use")
 
 func on_server_packet(peer_id: int, data: PackedByteArray) -> void:
 	var data_type = data[0]

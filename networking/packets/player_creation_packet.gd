@@ -7,6 +7,7 @@ var name: String = ""
 
 static func create(names: Dictionary[int, String]) -> PlayerCreation:
 	var info: PlayerCreation = PlayerCreation.new()
+	info.flag = ENetPacketPeer.FLAG_RELIABLE
 	info.packet_type = PACKET_TYPE.PLAYER_CREATION
 	info.names = names
 	

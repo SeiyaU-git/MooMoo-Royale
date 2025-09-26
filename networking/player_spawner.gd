@@ -13,6 +13,7 @@ func _ready() -> void:
 	#ClientNetworkGlobals.handle_local_id_assignment.connect(spawn_player)
 	#-->#ClientNetworkGlobals.handle_remote_id_assignment.connect(spawn_player)
 	ClientNetworkGlobals.handle_player_creation.connect(spawn_player)
+	
 
 func spawn_player(id: int, player_name: String) -> void:
 	

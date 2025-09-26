@@ -22,8 +22,8 @@ func encode() -> PackedByteArray:
 	data.resize(2 + remote_ids.size())
 	data.encode_u8(1, id)
 	for i in remote_ids.size():
-		var id: int = remote_ids[i]
-		data.encode_u8(2 + i, id)
+		var _id: int = remote_ids[i]
+		data.encode_u8(2 + i, _id)
 	return data
 
 func decode(data: PackedByteArray) -> void:

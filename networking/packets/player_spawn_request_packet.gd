@@ -7,6 +7,7 @@ var name: String = ""
 
 static func create(id: int, name: String) -> PlayerSpawn:
 	var info: PlayerSpawn = PlayerSpawn.new()
+	info.flag = ENetPacketPeer.FLAG_RELIABLE
 	info.packet_type = PACKET_TYPE.PLAYER_SPAWN
 	info.id = id
 	info.name = name
