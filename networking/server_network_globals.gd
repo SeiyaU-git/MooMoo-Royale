@@ -4,6 +4,7 @@ extends Node
 signal on_peer_joined(player_id: int, player_name: String)
 
 signal handle_player_transformation(peer_id: int, player_position: PlayerTransformation)
+signal handle_player_chat(peer_id: int, text: String)
 
 var peer_ids: Array[int]
 
@@ -43,6 +44,12 @@ func on_server_packet(peer_id: int, data: PackedByteArray) -> void:
 		PacketInfo.PACKET_TYPE.PLAYER_SPAWN:
 			handle_player_spawn(PlayerSpawn.create_from_data(data))
 		
+		PacketInfo.PACKET_TYPE.PLAYER_CHAT:
+			PlayerChat.create_from_data(data).broadcast(NetworkHandler.connection)
+			var chat_data = PlayerChat.create_from_data(data)
+			print(str(peer_names[chat_data.id], " said : ", chat_data.text))
+			#handle_player_chat.emit(chat_data.id, chat_data.text)
+			
 		PacketInfo.PACKET_TYPE.PLAYER_POSITION:
 			handle_player_transformation.emit(peer_id, PlayerTransformation.create_from_data(data))
 			

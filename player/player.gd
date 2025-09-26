@@ -1,17 +1,21 @@
 extends CharacterBody2D
 
+@onready var name_label: Label = $NameLabel
+@onready var text_box: LineEdit = $TextBox
+@onready var chat: PanelContainer = $Chat
+
 var owner_id: int
-
 var player_name: String
-
 var is_authority: bool:
 	get: return (not NetworkHandler.is_server) and (owner_id == ClientNetworkGlobals.id) 
 
 func _enter_tree() -> void:
 	ServerNetworkGlobals.handle_player_transformation.connect(server_handle_player_transformation)
 	ClientNetworkGlobals.handle_player_transformation.connect(client_handle_player_transformation)
-	$NameLabel.text = player_name
-	$IdLabel.text = str(owner_id)
+	
+	ClientNetworkGlobals.handle_player_chat.connect(player_chat)
+	#ServerNetworkGlobals.handle_player_chat.connect(player_chat)
+	$NameLabel.text = str(player_name)
 	
 	if is_authority:
 		modulate = Color(0.518, 0.553, 1.0, 1.0)
@@ -22,7 +26,9 @@ func _enter_tree() -> void:
 func _exit_tree() -> void:
 	ServerNetworkGlobals.handle_player_transformation.disconnect(server_handle_player_transformation)
 	ClientNetworkGlobals.handle_player_transformation.disconnect(client_handle_player_transformation)
-
+	
+	ClientNetworkGlobals.handle_player_chat.disconnect(player_chat)
+	#ServerNetworkGlobals.handle_player_chat.disconnect(player_chat)
 
 func _process(delta: float) -> void:
 	if not is_authority: 
@@ -33,7 +39,9 @@ func _process(delta: float) -> void:
 	
 	var packet: PlayerTransformation = PlayerTransformation.create(owner_id, global_position, global_rotation)
 	packet.send(NetworkHandler.server_peer)
-
+	
+	if Input.is_action_just_pressed("chat"):
+		text_box.use()
 
 func server_handle_player_transformation(peer_id: int, player_transformation: PlayerTransformation) -> void:
 	if owner_id != peer_id:
@@ -53,3 +61,8 @@ func client_handle_player_transformation(player_transformation: PlayerTransforma
 	
 	global_position = player_transformation.position
 	global_rotation = player_transformation.rotation
+
+func player_chat(id: int, text: String):
+	print(str("chat data recived", id, text))
+	if id == owner_id:
+		chat.show_message(text)

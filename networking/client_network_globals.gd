@@ -5,6 +5,7 @@ signal handle_local_id_assignment(local_id: int)
 signal handle_remote_id_assignment(remote_id: int)
 
 signal handle_player_transformation(player_position: PlayerTransformation)
+signal handle_player_chat(player_chat: PlayerChat)
 
 signal handle_player_creation(id: int, name: String)
 
@@ -34,6 +35,9 @@ func on_client_packet(data: PackedByteArray) -> void:
 		PacketInfo.PACKET_TYPE.PLAYER_POSITION:
 			handle_player_transformation.emit(PlayerTransformation.create_from_data(data))
 		
+		PacketInfo.PACKET_TYPE.PLAYER_CHAT:
+			handle_player_chat.emit(PlayerChat.create_from_data(data))
+		
 		_:
 			push_error("Packet with index", data[0], "NOT HANDLED")
 
@@ -56,7 +60,7 @@ func manage_ids(id_assignment: IDAssignment) -> void:
 		remote_ids.append(id_assignment.id)
 		#handle_remote_id_assignment.emit(id_assignment.id)
 
-func player_creation_request(player_id: int, player_name: String):
+func player_creation_request(player_id: int, player_name: String = "Unknown"):
 	client_name = player_name
 	print("player creation request with name", player_name)
 	PlayerSpawn.create(player_id, player_name).send(NetworkHandler.server_peer)
