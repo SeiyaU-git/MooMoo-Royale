@@ -24,7 +24,8 @@ func on_peer_disconnected(peer_id: int) -> void:
 
 
 func on_server_packet(peer_id: int, data: PackedByteArray) -> void:
-	match data[0]:
+	var data_type = data[0]
+	match data_type:
 		PacketInfo.PACKET_TYPE.PLAYER_POSITION:
 			handle_player_transformation.emit(peer_id, PlayerTransformation.create_from_data(data))
 		_:

@@ -33,7 +33,7 @@ func _process(delta: float) -> void:
 	packet.send(NetworkHandler.server_peer)
 
 func server_handle_player_transformation(peer_id: int, player_transformation: PlayerTransformation) -> void:
-	if not owner_id == peer_id:
+	if owner_id != peer_id:
 		return
 	
 	global_position = player_transformation.position
@@ -42,7 +42,10 @@ func server_handle_player_transformation(peer_id: int, player_transformation: Pl
 	PlayerTransformation.create(owner_id, global_position, global_rotation).broadcast(NetworkHandler.connection)
 
 func client_handle_player_transformation(player_transformation: PlayerTransformation) -> void:
-	if (is_authority) or (not owner_id == player_transformation.id):
+	if is_authority:
+		return
+	
+	if owner_id != player_transformation.id:
 		return
 	
 	global_position = player_transformation.position

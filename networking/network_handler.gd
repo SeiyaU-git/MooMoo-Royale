@@ -10,6 +10,7 @@ signal on_connected_to_server()
 signal on_disconnected_from_server()
 signal on_client_packet(data: PackedByteArray)
 
+
 # Server variables
 var available_peer_ids: Array = range(255, -1, -1)
 var client_peers: Dictionary[int, ENetPacketPeer] # key: peer_id (int), value: peer (ENetPacketPeer). The peer_id should hold "id" meta data. Use get_meta("id")

@@ -6,7 +6,7 @@ enum PACKET_TYPE{
 	ID_ASSIGNMENT = 0,
 	PLAYER_POSITION = 10,
 	
-	
+	PLAYER_CREATION = 1,
 }
 
 var packet_type: PACKET_TYPE
@@ -17,7 +17,7 @@ var flag: int
 func encode() -> PackedByteArray:
 	var data: PackedByteArray
 	data.resize(1)
-	data.encode_u8(0, packet_type) 
+	data.encode_u8(0, packet_type)
 	
 	return data
 

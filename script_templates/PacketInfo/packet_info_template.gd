@@ -1,5 +1,5 @@
 extends PacketInfo
-class_name name
+class_name a
 
 static func create() -> name:
 	var info: name = name.new()

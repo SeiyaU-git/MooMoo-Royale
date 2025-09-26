@@ -7,8 +7,14 @@ signal handle_remote_id_assignment(remote_id: int)
 signal handle_player_transformation(player_position: PlayerTransformation)
 
 
+# Node signals
+
+signal local_id_assigned(local_id: int)
+
 var id: int = -1
 var remote_ids: Array[int]
+
+var client_name: String = "Unknown"
 
 func _ready() -> void:
 	NetworkHandler.on_client_packet.connect(on_client_packet)
@@ -19,6 +25,7 @@ func on_client_packet(data: PackedByteArray) -> void:
 		PacketInfo.PACKET_TYPE.ID_ASSIGNMENT:
 			manage_ids(IDAssignment.create_from_data(data))
 		
+		
 		PacketInfo.PACKET_TYPE.PLAYER_POSITION:
 			handle_player_transformation.emit(PlayerTransformation.create_from_data(data))
 		
@@ -28,11 +35,15 @@ func on_client_packet(data: PackedByteArray) -> void:
 func manage_ids(id_assignment: IDAssignment) -> void:
 	if id == -1: # When id == -1, the id sent by the server is for us
 		id = id_assignment.id
+		
+		
+		#effectively spawning the player
 		handle_local_id_assignment.emit(id_assignment.id)
-
+		
 		remote_ids = id_assignment.remote_ids
 		for remote_id in remote_ids:
-			if remote_id == id: continue
+			if remote_id == id: 
+				continue
 			handle_remote_id_assignment.emit(remote_id)
 
 	else: # When id != -1, we already own an id, and just append the remote ids by the sent id
