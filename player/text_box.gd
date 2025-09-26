@@ -18,11 +18,11 @@ func open() -> void:
 	show()
 	grab_focus()
 	typing = true
+	text = ""
 	
 	
 func close() -> void:
 	hide()
 	release_focus()
 	PlayerChat.create(get_parent().owner_id, text).send(NetworkHandler.server_peer)
-	chat.show_messgage(text)
 	typing = false

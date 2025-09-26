@@ -9,8 +9,6 @@ signal handle_player_chat(player_chat: PlayerChat)
 
 signal handle_player_creation(id: int, name: String)
 
-signal create_player_request(id: int, name: String)
-
 # Node signals
 
 signal local_id_assigned(local_id: int)

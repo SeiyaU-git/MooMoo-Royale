@@ -6,7 +6,7 @@ extends PanelContainer
 func _ready() -> void:
 	clear()
 
-func show_messgage(message: String):
+func show_message(message: String):
 	show()
 	label.text = message
 	timer.start()

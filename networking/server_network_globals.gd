@@ -45,8 +45,8 @@ func on_server_packet(peer_id: int, data: PackedByteArray) -> void:
 			handle_player_spawn(PlayerSpawn.create_from_data(data))
 		
 		PacketInfo.PACKET_TYPE.PLAYER_CHAT:
-			PlayerChat.create_from_data(data).broadcast(NetworkHandler.connection)
 			var chat_data = PlayerChat.create_from_data(data)
+			chat_data.broadcast(NetworkHandler.connection)
 			print(str(peer_names[chat_data.id], " said : ", chat_data.text))
 			#handle_player_chat.emit(chat_data.id, chat_data.text)
 			

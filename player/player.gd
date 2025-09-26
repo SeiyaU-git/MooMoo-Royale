@@ -13,7 +13,7 @@ func _enter_tree() -> void:
 	ServerNetworkGlobals.handle_player_transformation.connect(server_handle_player_transformation)
 	ClientNetworkGlobals.handle_player_transformation.connect(client_handle_player_transformation)
 	
-	ClientNetworkGlobals.handle_player_chat.connect(player_chat)
+	ClientNetworkGlobals.handle_player_chat.connect(client_player_chat)
 	#ServerNetworkGlobals.handle_player_chat.connect(player_chat)
 	$NameLabel.text = str(player_name)
 	
@@ -27,7 +27,7 @@ func _exit_tree() -> void:
 	ServerNetworkGlobals.handle_player_transformation.disconnect(server_handle_player_transformation)
 	ClientNetworkGlobals.handle_player_transformation.disconnect(client_handle_player_transformation)
 	
-	ClientNetworkGlobals.handle_player_chat.disconnect(player_chat)
+	ClientNetworkGlobals.handle_player_chat.disconnect(client_player_chat)
 	#ServerNetworkGlobals.handle_player_chat.disconnect(player_chat)
 
 func _process(delta: float) -> void:
@@ -62,7 +62,7 @@ func client_handle_player_transformation(player_transformation: PlayerTransforma
 	global_position = player_transformation.position
 	global_rotation = player_transformation.rotation
 
-func player_chat(id: int, text: String):
-	print(str("chat data recived", id, text))
-	if id == owner_id:
-		chat.show_message(text)
+func client_player_chat(player_chat):
+	print(str("chat data recived", player_chat.id, player_chat.text))
+	if player_chat.id == owner_id:
+		chat.show_message(player_chat.text)

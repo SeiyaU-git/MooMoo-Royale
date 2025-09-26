@@ -1,0 +1,57 @@
+[gd_scene load_steps=6 format=3 uid="uid://bgbnvi0fmetc3"]
+
+[ext_resource type="Script" uid="uid://ogp06r8rl611" path="res://player/player.gd" id="1_rkbax"]
+[ext_resource type="Texture2D" uid="uid://bxrum1pfifclx" path="res://sprites/Coolplayer.webp" id="2_g1dw6"]
+[ext_resource type="Script" uid="uid://dx5unuvq6h1lu" path="res://player/chat.gd" id="3_g1dw6"]
+[ext_resource type="Script" uid="uid://dktmo8qofvyw" path="res://player/text_box.gd" id="3_yw30f"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_onrkg"]
+radius = 39.051247
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_rkbax")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+rotation = -1.5707964
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_g1dw6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_onrkg")
+
+[node name="NameLabel" type="Label" parent="."]
+offset_left = -199.0
+offset_top = -102.0
+offset_right = 1.0
+offset_bottom = -79.0
+scale = Vector2(2, 2)
+text = "NAME"
+horizontal_alignment = 1
+
+[node name="TextBox" type="LineEdit" parent="."]
+offset_left = -33.0
+offset_top = -148.0
+offset_right = 267.0
+offset_bottom = -108.0
+placeholder_text = "message here"
+caret_blink = true
+script = ExtResource("3_yw30f")
+
+[node name="Chat" type="PanelContainer" parent="."]
+offset_left = -19.0
+offset_top = -147.0
+offset_right = 21.0
+offset_bottom = -107.0
+script = ExtResource("3_g1dw6")
+
+[node name="MarginContainer" type="MarginContainer" parent="Chat"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Chat/MarginContainer"]
+layout_mode = 2
+
+[node name="Timer" type="Timer" parent="Chat"]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="timeout" from="Chat/Timer" to="Chat" method="_on_timer_timeout"]
