@@ -1,7 +1,8 @@
 extends Node
 ## SEVER ##
 
-signal on_peer_joined(player_id: int, player_name: String)
+signal on_player_spawned(player_id: int, player_name: String)
+signal on_player_deleted(player_id: int)
 
 signal handle_player_transformation(peer_id: int, player_position: PlayerTransformation)
 signal handle_player_chat(peer_id: int, text: String)
@@ -30,13 +31,14 @@ func handle_player_spawn(player_spawn: PlayerSpawn):
 	
 	print(peer_names)
 	PlayerCreation.create(peer_names).broadcast(NetworkHandler.connection)
-	on_peer_joined.emit(_id, _name)
+	on_player_spawned.emit(_id, _name)
 
 func on_peer_disconnected(peer_id: int) -> void:
 	peer_ids.erase(peer_id)
 
 	IDUnassignment.create(peer_id).broadcast(NetworkHandler.connection)
 	print("id", peer_id, "has been deleted on the server side and is avalable for use")
+	on_player_deleted.emit(peer_id)
 
 func on_server_packet(peer_id: int, data: PackedByteArray) -> void:
 	var data_type = data[0]

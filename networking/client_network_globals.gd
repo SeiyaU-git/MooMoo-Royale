@@ -9,7 +9,7 @@ signal handle_player_chat(player_chat: PlayerChat)
 
 signal handle_player_creation(id: int, name: String)
 
-signal handle_player_deletion(player_deletion: IDUnassignment)
+signal handle_player_deletion(id: int)
 
 # Node signals
 
@@ -67,7 +67,7 @@ func manage_ids(id_assignment: IDAssignment) -> void:
 func remove_ids(id_unassignment: IDUnassignment) -> void:
 	remote_ids.erase(id_unassignment.id)
 	
-	handle_player_deletion.emit(id_unassignment)
+	handle_player_deletion.emit(id_unassignment.id)
 
 func player_creation_request(player_id: int, player_name: String = "not recived"):
 	client_name = player_name

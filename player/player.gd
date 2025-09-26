@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 @onready var name_label: Label = $NameLabel
 @onready var text_box: LineEdit = $TextBox
