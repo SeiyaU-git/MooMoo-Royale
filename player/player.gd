@@ -8,7 +8,14 @@ var is_authority: bool:
 func _enter_tree() -> void:
 	ServerNetworkGlobals.handle_player_transformation.connect(server_handle_player_transformation)
 	ClientNetworkGlobals.handle_player_transformation.connect(client_handle_player_transformation)
-	$Label.text = name
+	$NameLabel.text = name
+	$IdLabel.text = str(owner_id)
+	
+	if is_authority:
+		modulate = Color(0.518, 0.553, 1.0, 1.0)
+	
+	else:
+		modulate = Color(1.0, 0.553, 0.569, 1.0)
 
 func _exit_tree() -> void:
 	ServerNetworkGlobals.handle_player_transformation.disconnect(server_handle_player_transformation)

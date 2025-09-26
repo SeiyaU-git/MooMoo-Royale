@@ -1,0 +1,61 @@
+class_name IDAssignment extends PacketInfo
+
+var id: int
+var remote_ids: Array[int]
+var names: Dictionary = {} # map id -> name
+
+static func create(id: int, remote_ids: Array[int], names: Dictionary) -> IDAssignment:
+	var info: IDAssignment = IDAssignment.new()
+	info.packet_type = PACKET_TYPE.ID_ASSIGNMENT
+	info.flag = ENetPacketPeer.FLAG_RELIABLE
+	info.id = id
+	info.remote_ids = remote_ids
+	info.names = names
+	return info
+
+static func create_from_data(data: PackedByteArray) -> IDAssignment:
+	var info: IDAssignment = IDAssignment.new()
+	info.decode(data)
+	return info
+
+func encode() -> PackedByteArray:
+	var data: PackedByteArray = super.encode()
+
+	# Start with IDs
+	data.append(id)
+	data.append(remote_ids.size())
+	for rid in remote_ids:
+		data.append(rid)
+
+	# Then write names
+	data.append(names.size())
+	for rid in names.keys():
+		var name: String = names[rid]
+		var name_bytes: PackedByteArray = name.to_utf8_buffer()
+		data.append(rid) # store whose name this is
+		data.append(name_bytes.size())
+		data.append_array(name_bytes)
+
+	return data
+
+func decode(data: PackedByteArray) -> void:
+	super.decode(data)
+
+	var cursor := 1
+	id = data.decode_u8(cursor); cursor += 1
+
+	var remote_count = data.decode_u8(cursor); cursor += 1
+	remote_ids.clear()
+	for i in remote_count:
+		remote_ids.append(data.decode_u8(cursor))
+		cursor += 1
+
+	var name_count = data.decode_u8(cursor); cursor += 1
+	names.clear()
+	for i in name_count:
+		var rid = data.decode_u8(cursor); cursor += 1
+		var name_len = data.decode_u8(cursor); cursor += 1
+		var name_bytes = data.slice(cursor, cursor + name_len)
+		var name_str = name_bytes.get_string_from_utf8()
+		cursor += name_len
+		names[rid] = name_str
