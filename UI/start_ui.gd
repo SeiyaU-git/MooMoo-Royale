@@ -13,3 +13,7 @@ func _on_join_button_pressed() -> void:
 	
 	hide()
 	NetworkHandler.start_client()
+	
+	await ClientNetworkGlobals.local_id_assigned
+	
+	ClientNetworkGlobals.player_creation_request(ClientNetworkGlobals.id, client_name)

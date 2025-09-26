@@ -1,15 +1,13 @@
 extends PacketInfo
 class_name PlayerCreation
 
-var id: int
 var names: Dictionary[int, String]
 var name: String = ""
 
 
-static func create(id: int, names: Dictionary[int, String]) -> PlayerCreation:
+static func create(names: Dictionary[int, String]) -> PlayerCreation:
 	var info: PlayerCreation = PlayerCreation.new()
 	info.packet_type = PACKET_TYPE.PLAYER_CREATION
-	info.id = id
 	info.names = names
 	
 	return info
@@ -21,9 +19,6 @@ static func create_from_data(data: PackedByteArray) -> PlayerCreation:
 
 func encode() -> PackedByteArray:
 	var data := super.encode() # contains packet_type
-
-	# Write packet id
-	data.append(id)
 
 	# Write number of names
 	data.append(names.size())
@@ -43,11 +38,12 @@ func encode() -> PackedByteArray:
 	
 	return data
 
+
+
 func decode(data: PackedByteArray) -> void:
 	super.decode(data)
 
 	var index := 1  # skip packet_type
-	id = data[index]; index += 1
 	var names_amount := data[index]; index += 1
 
 	for i in range(names_amount):

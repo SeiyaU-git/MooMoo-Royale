@@ -1,9 +1,11 @@
 extends Node
+## NETWORK HANDLER ##
 
 # Server signals
 signal on_peer_connected(peer_id: int)
 signal on_peer_disconnected(peer_id: int)
 signal on_server_packet(peer_id: int, data: PackedByteArray)
+
 
 # Client signals
 signal on_connected_to_server()

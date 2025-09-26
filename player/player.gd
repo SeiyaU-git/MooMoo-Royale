@@ -2,13 +2,15 @@ extends CharacterBody2D
 
 var owner_id: int
 
+var player_name: String
+
 var is_authority: bool:
 	get: return (not NetworkHandler.is_server) and (owner_id == ClientNetworkGlobals.id) 
 
 func _enter_tree() -> void:
 	ServerNetworkGlobals.handle_player_transformation.connect(server_handle_player_transformation)
 	ClientNetworkGlobals.handle_player_transformation.connect(client_handle_player_transformation)
-	$NameLabel.text = name
+	$NameLabel.text = player_name
 	$IdLabel.text = str(owner_id)
 	
 	if is_authority:
@@ -32,6 +34,7 @@ func _process(delta: float) -> void:
 	var packet: PlayerTransformation = PlayerTransformation.create(owner_id, global_position, global_rotation)
 	packet.send(NetworkHandler.server_peer)
 
+
 func server_handle_player_transformation(peer_id: int, player_transformation: PlayerTransformation) -> void:
 	if owner_id != peer_id:
 		return
@@ -40,7 +43,7 @@ func server_handle_player_transformation(peer_id: int, player_transformation: Pl
 	global_rotation = player_transformation.rotation
 	
 	PlayerTransformation.create(owner_id, global_position, global_rotation).broadcast(NetworkHandler.connection)
-
+	
 func client_handle_player_transformation(player_transformation: PlayerTransformation) -> void:
 	if is_authority:
 		return

@@ -2,15 +2,29 @@ extends Node
 
 const PLAYER = preload("res://player/player.tscn")
 
-func _ready() -> void:
-	NetworkHandler.on_peer_connected.connect(spawn_player)
-	ClientNetworkGlobals.handle_local_id_assignment.connect(spawn_player)
-	ClientNetworkGlobals.handle_remote_id_assignment.connect(spawn_player)
+var player_names: Dictionary
 
-func spawn_player(id: int) -> void:
+var currently_alive_ids: Array
+
+var ids_spawned: Array
+
+func _ready() -> void:
+	ServerNetworkGlobals.on_peer_joined.connect(spawn_player)
+	#ClientNetworkGlobals.handle_local_id_assignment.connect(spawn_player)
+	#-->#ClientNetworkGlobals.handle_remote_id_assignment.connect(spawn_player)
+	ClientNetworkGlobals.handle_player_creation.connect(spawn_player)
+
+func spawn_player(id: int, player_name: String) -> void:
+	
+	if id in ids_spawned:
+		print("player skipped", id)
+		return
+		
+
+	ids_spawned.append(id)
 	var player = PLAYER.instantiate()
 	player.owner_id = id
-	player.name = str("Unknown id: ", id) # CHANGE LATER
+	player.player_name = str(player_name, id) # CHANGE LATER
 	
 	call_deferred("add_child", player)
 	print("PLAYER SPAWNED")

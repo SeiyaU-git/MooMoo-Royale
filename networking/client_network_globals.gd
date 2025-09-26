@@ -1,11 +1,14 @@
 extends Node
+## CLIENT ##
 
 signal handle_local_id_assignment(local_id: int)
 signal handle_remote_id_assignment(remote_id: int)
 
-
 signal handle_player_transformation(player_position: PlayerTransformation)
 
+signal handle_player_creation(id: int, name: String)
+
+signal create_player_request(id: int, name: String)
 
 # Node signals
 
@@ -25,6 +28,8 @@ func on_client_packet(data: PackedByteArray) -> void:
 		PacketInfo.PACKET_TYPE.ID_ASSIGNMENT:
 			manage_ids(IDAssignment.create_from_data(data))
 		
+		PacketInfo.PACKET_TYPE.PLAYER_CREATION:
+			manage_player_creation(PlayerCreation.create_from_data(data))
 		
 		PacketInfo.PACKET_TYPE.PLAYER_POSITION:
 			handle_player_transformation.emit(PlayerTransformation.create_from_data(data))
@@ -35,17 +40,27 @@ func on_client_packet(data: PackedByteArray) -> void:
 func manage_ids(id_assignment: IDAssignment) -> void:
 	if id == -1: # When id == -1, the id sent by the server is for us
 		id = id_assignment.id
-		
+		local_id_assigned.emit(id)
+		print("EJKRHKJEWHJKRHEKJs")
 		
 		#effectively spawning the player
-		handle_local_id_assignment.emit(id_assignment.id)
+		#handle_local_id_assignment.emit(id_assignment.id)
 		
 		remote_ids = id_assignment.remote_ids
 		for remote_id in remote_ids:
 			if remote_id == id: 
 				continue
-			handle_remote_id_assignment.emit(remote_id)
+			#handle_remote_id_assignment.emit(remote_id)
 
 	else: # When id != -1, we already own an id, and just append the remote ids by the sent id
 		remote_ids.append(id_assignment.id)
-		handle_remote_id_assignment.emit(id_assignment.id)
+		#handle_remote_id_assignment.emit(id_assignment.id)
+
+func player_creation_request(player_id: int, player_name: String):
+	client_name = player_name
+	print("player creation request with name", player_name)
+	PlayerSpawn.create(player_id, player_name).send(NetworkHandler.server_peer)
+
+func manage_player_creation(player_creation: PlayerCreation):
+	for _id in player_creation.names.keys():
+		handle_player_creation.emit(_id, player_creation.names[_id])
