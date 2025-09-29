@@ -24,5 +24,5 @@ func open() -> void:
 func close() -> void:
 	hide()
 	release_focus()
-	PlayerChat.create(get_parent().owner_id, text).send(NetworkHandler.server_peer)
+	PlayerChat.create(get_parent().get_parent().owner_id, text).send(NetworkHandler.server_peer)
 	typing = false

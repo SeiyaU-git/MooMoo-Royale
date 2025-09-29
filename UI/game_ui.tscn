@@ -1,0 +1,98 @@
+[gd_scene load_steps=5 format=3 uid="uid://dhea3qmpokodb"]
+
+[ext_resource type="PackedScene" uid="uid://duss0jrbf2g2c" path="res://UI/material_display.tscn" id="1_mp46i"]
+[ext_resource type="Texture2D" uid="uid://de6dyk3atjapq" path="res://UI/icons/Food_Ico.webp" id="2_2oifk"]
+[ext_resource type="Texture2D" uid="uid://ddcw5f7bvsaqq" path="res://UI/icons/Stone_Ico.webp" id="3_dbpsm"]
+[ext_resource type="Texture2D" uid="uid://chqee0hi76sxv" path="res://UI/icons/Gold_Ico.webp" id="4_fy64h"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -3.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MaterialBox" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -110.0
+offset_top = -151.0
+offset_right = -29.0
+offset_bottom = -22.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="MaterialDisplay" parent="MaterialBox" instance=ExtResource("1_mp46i")]
+layout_mode = 2
+image = ExtResource("2_2oifk")
+
+[node name="MaterialDisplay2" parent="MaterialBox" instance=ExtResource("1_mp46i")]
+layout_mode = 2
+
+[node name="MaterialDisplay3" parent="MaterialBox" instance=ExtResource("1_mp46i")]
+layout_mode = 2
+image = ExtResource("3_dbpsm")
+
+[node name="AgreBar" type="ProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -265.0
+offset_top = -122.0
+offset_right = 285.0
+offset_bottom = -95.0
+grow_horizontal = 2
+grow_vertical = 0
+value = 100.0
+
+[node name="LeaderBored" type="TextEdit" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -176.0
+offset_top = 41.0
+offset_right = -48.0
+offset_bottom = 183.0
+grow_horizontal = 0
+text = "1. moomoo
+2. poopoo
+3. unknown"
+
+[node name="MaterialDisplay" parent="." instance=ExtResource("1_mp46i")]
+layout_mode = 0
+offset_left = 1032.0
+offset_top = 193.0
+offset_right = 1099.0
+offset_bottom = 221.0
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 21.0
+offset_top = -236.0
+offset_right = 218.0
+offset_bottom = -29.0
+grow_vertical = 0
+
+[node name="MaterialDisplay2" parent="." instance=ExtResource("1_mp46i")]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 360.0
+offset_right = 95.0
+offset_bottom = 396.0
+image = ExtResource("4_fy64h")

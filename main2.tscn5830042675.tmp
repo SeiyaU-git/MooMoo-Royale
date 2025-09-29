@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqc8dru4hqc15"]
+
+[ext_resource type="Script" uid="uid://bwung2qcgq2m" path="res://main.gd" id="1_oex3p"]
+
+[node name="Main" type="Node"]
+script = ExtResource("1_oex3p")
+
+[node name="EntityLayer" type="Node2D" parent="."]
+
+[node name="ArenaLayer" type="Node2D" parent="."]
+
+[node name="UILayer" type="CanvasLayer" parent="."]

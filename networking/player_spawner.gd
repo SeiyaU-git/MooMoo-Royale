@@ -1,6 +1,7 @@
 extends Node
 
 const PLAYER = preload("res://player/player.tscn")
+const BUSH_SCENE_LOADER = preload("res://bush_scene_loader.tscn")
 
 var player_names: Dictionary
 
@@ -8,7 +9,7 @@ var currently_alive_ids: Array
 
 var ids_spawned: Array
 
-func _ready() -> void:
+func _enter_tree() -> void:
 	ServerNetworkGlobals.on_player_spawned.connect(spawn_player)
 	#ClientNetworkGlobals.handle_local_id_assignment.connect(spawn_player)
 	#-->#ClientNetworkGlobals.handle_remote_id_assignment.connect(spawn_player)
@@ -16,6 +17,8 @@ func _ready() -> void:
 	
 	ServerNetworkGlobals.on_player_deleted.connect(delete_player)
 	ClientNetworkGlobals.handle_player_deletion.connect(delete_player)
+	Layer.arena.add_child(BUSH_SCENE_LOADER.instantiate())
+	
 
 func spawn_player(id: int, player_name: String) -> void:
 	
@@ -29,14 +32,11 @@ func spawn_player(id: int, player_name: String) -> void:
 	player.owner_id = id
 	player.player_name = str(player_name, id) # CHANGE LATER
 	
-	call_deferred("add_child", player)
+	Layer.call_deferred("add_element", player, Layer.entity)
 	print("PLAYER SPAWNED")
 
 func delete_player(peer_id: int) -> void:
-	
-	for id in ids_spawned:
-		if id == peer_id:
-			for child in get_children():
-				if child is Player:
-					if child.owner_id == peer_id:
-						child.queue_free()
+	ids_spawned.erase(peer_id)
+	for child in get_children():
+		if child is Player and not child.owner_id in ids_spawned:
+			child.queue_free()

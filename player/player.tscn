@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bgbnvi0fmetc3"]
+[gd_scene load_steps=10 format=3 uid="uid://bgbnvi0fmetc3"]
 
 [ext_resource type="Script" uid="uid://ogp06r8rl611" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="Texture2D" uid="uid://bxrum1pfifclx" path="res://sprites/Coolplayer.webp" id="2_g1dw6"]
@@ -9,24 +9,75 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_onrkg"]
 radius = 39.051247
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
-script = ExtResource("1_rkbax")
+[sub_resource type="Animation" id="Animation_g6k8r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
-[node name="ToolHammer" type="Sprite2D" parent="."]
+[sub_resource type="Animation" id="Animation_qjkh3"]
+resource_name = "attack"
+length = 0.50000334
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.06666667, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -1.5707963267948966, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_g6k8r"]
+_data = {
+&"RESET": SubResource("Animation_g6k8r"),
+&"attack": SubResource("Animation_qjkh3")
+}
+
+[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("ui_stuff", "name_label", "text_box", "chat")]
+script = ExtResource("1_rkbax")
+ui_stuff = NodePath("Control")
+name_label = NodePath("Control/NameLabel")
+text_box = NodePath("Control/TextBox")
+chat = NodePath("Control/Chat")
+
+[node name="Body" type="Node2D" parent="."]
+
+[node name="ToolSprite" type="Sprite2D" parent="Body"]
 position = Vector2(54.000004, 15)
 rotation = 0.013345718
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_qjkh3")
 
-[node name="PlayerSprite" type="Sprite2D" parent="."]
+[node name="PlayerSprite" type="Sprite2D" parent="Body"]
+position = Vector2(-3.8146973e-06, -9.536743e-07)
 rotation = -1.5707964
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.20000002, 0.20000002)
 texture = ExtResource("2_g1dw6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_onrkg")
 
-[node name="NameLabel" type="Label" parent="."]
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="NameLabel" type="Label" parent="Control"]
+layout_mode = 0
 offset_left = -199.0
 offset_top = -102.0
 offset_right = 1.0
@@ -35,7 +86,8 @@ scale = Vector2(2, 2)
 text = "NAME"
 horizontal_alignment = 1
 
-[node name="TextBox" type="LineEdit" parent="."]
+[node name="TextBox" type="LineEdit" parent="Control"]
+layout_mode = 0
 offset_left = -33.0
 offset_top = -148.0
 offset_right = 267.0
@@ -44,21 +96,28 @@ placeholder_text = "message here"
 caret_blink = true
 script = ExtResource("3_yw30f")
 
-[node name="Chat" type="PanelContainer" parent="."]
-offset_left = -19.0
-offset_top = -147.0
-offset_right = 21.0
-offset_bottom = -107.0
+[node name="Chat" type="PanelContainer" parent="Control"]
+layout_mode = 0
+offset_left = -46.0
+offset_top = -172.0
+offset_right = -6.0
+offset_bottom = -132.0
+scale = Vector2(2, 2)
 script = ExtResource("3_g1dw6")
 
-[node name="MarginContainer" type="MarginContainer" parent="Chat"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/Chat"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Chat/MarginContainer"]
+[node name="Label" type="Label" parent="Control/Chat/MarginContainer"]
 layout_mode = 2
 
-[node name="Timer" type="Timer" parent="Chat"]
+[node name="Timer" type="Timer" parent="Control/Chat"]
 wait_time = 5.0
 one_shot = true
 
-[connection signal="timeout" from="Chat/Timer" to="Chat" method="_on_timer_timeout"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_g6k8r")
+}
+
+[connection signal="timeout" from="Control/Chat/Timer" to="Control/Chat" method="_on_timer_timeout"]

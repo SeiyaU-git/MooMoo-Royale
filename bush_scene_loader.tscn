@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://8gd4bk3q7vek"]
+
+[ext_resource type="Script" uid="uid://58fh0xsvuqhg" path="res://utilities/layers/scene_loader.gd" id="1_uoab3"]
+[ext_resource type="Script" uid="uid://cqiss4r6r6ge2" path="res://utilities/layers/arena_layer_loader.gd" id="2_h1io7"]
+[ext_resource type="PackedScene" uid="uid://cccds5jrulqvt" path="res://bush.tscn" id="3_hg7wg"]
+
+[node name="SceneLoader" type="Node"]
+script = ExtResource("1_uoab3")
+metadata/_custom_type_script = "uid://58fh0xsvuqhg"
+
+[node name="ArenaLayerLoader" type="Node2D" parent="."]
+script = ExtResource("2_h1io7")
+metadata/_custom_type_script = "uid://cqiss4r6r6ge2"
+
+[node name="Bush" parent="ArenaLayerLoader" instance=ExtResource("3_hg7wg")]
+position = Vector2(412, 88)
+
+[node name="Bush2" parent="ArenaLayerLoader" instance=ExtResource("3_hg7wg")]
+position = Vector2(154, 581)
+
+[node name="Bush3" parent="ArenaLayerLoader" instance=ExtResource("3_hg7wg")]
+position = Vector2(964, 660)
+
+[node name="Bush4" parent="ArenaLayerLoader" instance=ExtResource("3_hg7wg")]
+position = Vector2(1149, -323)
+
+[node name="Bush5" parent="ArenaLayerLoader" instance=ExtResource("3_hg7wg")]
+position = Vector2(91, -514)
+
+[node name="Bush6" parent="ArenaLayerLoader" instance=ExtResource("3_hg7wg")]
+position = Vector2(-565, -166)
+
+[node name="Bush7" parent="ArenaLayerLoader" instance=ExtResource("3_hg7wg")]
+position = Vector2(-380, 544)
+
+[node name="Bush8" parent="ArenaLayerLoader" instance=ExtResource("3_hg7wg")]
+position = Vector2(-260, 1297)

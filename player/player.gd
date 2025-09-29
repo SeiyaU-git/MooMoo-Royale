@@ -1,9 +1,12 @@
 extends CharacterBody2D
 class_name Player
 
-@onready var name_label: Label = $NameLabel
-@onready var text_box: LineEdit = $TextBox
-@onready var chat: PanelContainer = $Chat
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
+@export var ui_stuff: Control
+@export var name_label: Label
+@export var text_box: LineEdit
+@export var chat: PanelContainer
 
 var owner_id: int
 var player_name: String
@@ -16,13 +19,13 @@ func _enter_tree() -> void:
 	
 	ClientNetworkGlobals.handle_player_chat.connect(client_player_chat)
 	#ServerNetworkGlobals.handle_player_chat.connect(player_chat)
-	$NameLabel.text = str(player_name)
+	name_label.text = str(player_name)
 	
 	if is_authority:
-		modulate = Color(0.518, 0.553, 1.0, 1.0)
+		modulate = Color(1.0, 0.894, 1.0, 1.0)
 	
 	else:
-		modulate = Color(1.0, 0.553, 0.569, 1.0)
+		modulate = Color(1.0, 0.894, 0.882, 1.0)
 
 func _exit_tree() -> void:
 	ServerNetworkGlobals.handle_player_transformation.disconnect(server_handle_player_transformation)
@@ -32,14 +35,23 @@ func _exit_tree() -> void:
 	#ServerNetworkGlobals.handle_player_chat.disconnect(player_chat)
 
 func _process(delta: float) -> void:
-	if not is_authority: 
-		return
 	
+	if is_authority: 
+		client_process(delta)
+	
+	ui_stuff.rotation = -global_rotation
+
+func client_process(delta: float) -> void:
 	global_position += Input.get_vector("left", "right", "up", "down") * delta * 400
-	look_at(get_global_mouse_position())
+	
+	if not animation_player.current_animation == "attack":
+		look_at(get_global_mouse_position())
 	
 	var packet: PlayerTransformation = PlayerTransformation.create(owner_id, global_position, global_rotation)
 	packet.send(NetworkHandler.server_peer)
+	
+	if Input.is_action_pressed("attack"):
+		animation_player.play("attack")
 	
 	if Input.is_action_just_pressed("chat"):
 		text_box.use()
