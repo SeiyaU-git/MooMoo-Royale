@@ -13,7 +13,8 @@ var player_name: String
 var is_authority: bool:
 	get: return (not NetworkHandler.is_server) and (owner_id == ClientNetworkGlobals.id) 
 
-var xlock := false
+var is_xlock := false
+var is_auto_attack := false
 
 func _enter_tree() -> void:
 	ServerNetworkGlobals.handle_player_transformation.connect(server_handle_player_transformation)
@@ -47,19 +48,26 @@ func client_process(delta: float) -> void:
 	global_position += Input.get_vector("left", "right", "up", "down") * delta * 400
 	
 	if Input.is_action_just_pressed("lock_direction"):
-		xlock = ! xlock
-		if xlock:
+		is_xlock = ! is_xlock
+		if is_xlock:
 			chat.show_message("Rotation locked with [X]")
 		else:
 			chat.show_message("Rotation Unlocked")
 	
-	if not (animation_player.current_animation == "attack" or xlock):
+	if Input.is_action_just_pressed("auto attack"):
+		is_auto_attack = ! is_auto_attack
+		if is_auto_attack:
+			chat.show_message("Auto attack enabled with [E]")
+		else:
+			chat.show_message("Auto attack disabled")
+	
+	if not (animation_player.current_animation == "attack" or is_xlock):
 		look_at(get_global_mouse_position())
 	
 	var packet: PlayerTransformation = PlayerTransformation.create(owner_id, global_position, global_rotation)
 	packet.send(NetworkHandler.server_peer)
 	
-	if Input.is_action_pressed("attack"):
+	if Input.is_action_pressed("attack") or is_auto_attack:
 		animation_player.play("attack")
 	
 	if Input.is_action_just_pressed("chat"):
