@@ -55,6 +55,8 @@ func client_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("chat"):
 		text_box.use()
+	
+	Layer.camera.global_position = global_position
 
 func server_handle_player_transformation(peer_id: int, player_transformation: PlayerTransformation) -> void:
 	if owner_id != peer_id:

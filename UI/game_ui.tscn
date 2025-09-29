@@ -62,21 +62,25 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -176.0
-offset_top = 41.0
-offset_right = -48.0
-offset_bottom = 183.0
+offset_left = -173.0
+offset_top = 25.0
+offset_right = -45.0
+offset_bottom = 167.0
 grow_horizontal = 0
 text = "1. moomoo
 2. poopoo
 3. unknown"
 
 [node name="MaterialDisplay" parent="." instance=ExtResource("1_mp46i")]
-layout_mode = 0
-offset_left = 1032.0
-offset_top = 193.0
-offset_right = 1099.0
-offset_bottom = 221.0
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -123.0
+offset_top = 181.0
+offset_right = -48.0
+offset_bottom = 217.0
+grow_horizontal = 0
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -90,9 +94,13 @@ offset_bottom = -29.0
 grow_vertical = 0
 
 [node name="MaterialDisplay2" parent="." instance=ExtResource("1_mp46i")]
-layout_mode = 0
-offset_left = 20.0
-offset_top = 360.0
-offset_right = 95.0
-offset_bottom = 396.0
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = -288.0
+offset_right = 105.0
+offset_bottom = -252.0
+grow_vertical = 0
 image = ExtResource("4_fy64h")

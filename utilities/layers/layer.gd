@@ -6,6 +6,8 @@ var ui: CanvasLayer
 
 var root: Node
 
+var camera: Camera2D
+
 func add_element(node_2d: Node2D, layer: Node2D) -> Node2D:
 	layer.add_child(node_2d)
 	return node_2d

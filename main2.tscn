@@ -10,3 +10,6 @@ script = ExtResource("1_oex3p")
 [node name="ArenaLayer" type="Node2D" parent="."]
 
 [node name="UILayer" type="CanvasLayer" parent="."]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 324)

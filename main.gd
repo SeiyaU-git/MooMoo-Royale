@@ -15,3 +15,5 @@ func _ready() -> void:
 	Layer.load_ui(START_UI)
 	
 	add_child(PLAYER_SPAWNER.instantiate())
+	
+	Layer.camera = $Camera2D

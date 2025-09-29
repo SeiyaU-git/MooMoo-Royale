@@ -47,6 +47,7 @@ _data = {
 }
 
 [node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("ui_stuff", "name_label", "text_box", "chat")]
+scale = Vector2(0.75, 0.75)
 script = ExtResource("1_rkbax")
 ui_stuff = NodePath("Control")
 name_label = NodePath("Control/NameLabel")
