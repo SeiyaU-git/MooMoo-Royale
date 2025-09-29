@@ -31,7 +31,6 @@ func _process_area(area: Area2D) -> void:
 	if area in _processed_areas:
 		return
 	_processed_areas[area] = true
-	print("Area entered:", area)
 	area_detected.emit(area)  # emit the custom signal
 
 func on_area_detected(area: Area2D) -> void:

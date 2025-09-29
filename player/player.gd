@@ -101,6 +101,11 @@ func client_player_chat(player_chat):
 
 
 
-func _on_area_2d_area_detected(area: Area2D) -> void:
+func _on_area_2d_area_detected(area: MaterialArea) -> void:
+	if not is_authority:
+		return
+	
+	area.receive_hit()
+	
 	Global.player_manager.wood += 1
 	Global.player_manager.xp += 1

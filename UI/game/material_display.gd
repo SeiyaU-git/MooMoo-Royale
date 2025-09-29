@@ -25,6 +25,7 @@ var _number: int
 
 func _ready() -> void:
 	_sprite_changed()
+	_number_changed()
 
 func _sprite_changed() -> void:
 	if texture_rect:

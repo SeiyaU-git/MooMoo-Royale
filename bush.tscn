@@ -1,5 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cccds5jrulqvt"]
+[gd_scene load_steps=4 format=3 uid="uid://cccds5jrulqvt"]
 
+[ext_resource type="Script" uid="uid://cpo0e1ius7kao" path="res://bush.gd" id="1_28u5p"]
 [ext_resource type="Texture2D" uid="uid://dps434uxdb2oj" path="res://sprites/Sapling1.webp" id="1_brfkd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nnvrw"]
@@ -8,10 +9,12 @@ radius = 154.20766
 [node name="Bush" type="Area2D"]
 collision_layer = 3
 collision_mask = 0
+script = ExtResource("1_28u5p")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_brfkd")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_nnvrw")
