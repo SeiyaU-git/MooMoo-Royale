@@ -50,6 +50,22 @@ layout_mode = 2
 image = ExtResource("4_5jup1")
 number = 0
 
+[node name="AgeNumber" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -49.0
+offset_top = -155.0
+offset_right = 58.0
+offset_bottom = -132.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Age: "
+horizontal_alignment = 1
+
 [node name="AgeBar" type="ProgressBar" parent="."]
 layout_mode = 1
 anchors_preset = 7

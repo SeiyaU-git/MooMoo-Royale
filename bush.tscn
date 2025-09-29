@@ -6,6 +6,8 @@
 radius = 154.20766
 
 [node name="Bush" type="Area2D"]
+collision_layer = 3
+collision_mask = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)

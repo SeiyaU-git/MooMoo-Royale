@@ -1,10 +1,17 @@
-[gd_scene load_steps=10 format=3 uid="uid://bgbnvi0fmetc3"]
+[gd_scene load_steps=13 format=3 uid="uid://bgbnvi0fmetc3"]
 
 [ext_resource type="Script" uid="uid://ogp06r8rl611" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="Texture2D" uid="uid://bxrum1pfifclx" path="res://sprites/Coolplayer.webp" id="2_g1dw6"]
 [ext_resource type="Texture2D" uid="uid://ok1n75j0ffvu" path="res://sprites/Hammer_1.webp" id="2_qjkh3"]
 [ext_resource type="Script" uid="uid://dx5unuvq6h1lu" path="res://player/chat.gd" id="3_g1dw6"]
+[ext_resource type="Script" uid="uid://7yo1x3lyjw57" path="res://utilities/monitoring_area.gd" id="3_g6k8r"]
 [ext_resource type="Script" uid="uid://dktmo8qofvyw" path="res://player/text_box.gd" id="3_yw30f"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qjkh3"]
+radius = 53.748363
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qjkh3"]
+height = 160.04506
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_onrkg"]
 radius = 39.051247
@@ -39,6 +46,23 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0, -1.5707963267948966, 0.0]
 }
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body/ToolSprite/Area2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"enable_monitoring"
+}, {
+"args": [],
+"method": &"disable_monitoring"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g6k8r"]
 _data = {
@@ -61,6 +85,21 @@ position = Vector2(54.000004, 15)
 rotation = 0.013345718
 scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_qjkh3")
+
+[node name="Area2D" type="Area2D" parent="Body/ToolSprite"]
+position = Vector2(-2.3914583, 70.59376)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("3_g6k8r")
+metadata/_custom_type_script = "uid://7yo1x3lyjw57"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/ToolSprite/Area2D"]
+shape = SubResource("CircleShape2D_qjkh3")
+debug_color = Color(0.9977123, 0, 0.17001125, 0.41960785)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Body/ToolSprite/Area2D"]
+position = Vector2(-10.2819395, -104.31651)
+shape = SubResource("CapsuleShape2D_qjkh3")
 
 [node name="PlayerSprite" type="Sprite2D" parent="Body"]
 position = Vector2(-3.8146973e-06, -9.536743e-07)
@@ -121,4 +160,5 @@ libraries = {
 &"": SubResource("AnimationLibrary_g6k8r")
 }
 
+[connection signal="area_detected" from="Body/ToolSprite/Area2D" to="." method="_on_area_2d_area_detected"]
 [connection signal="timeout" from="Control/Chat/Timer" to="Control/Chat" method="_on_timer_timeout"]

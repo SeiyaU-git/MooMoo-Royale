@@ -13,7 +13,6 @@ var gold: int:
 	get:
 		return _gold
 
-
 var _food: int = 0
 var food: int:
 	set(value):
@@ -32,7 +31,6 @@ var wood: int:
 	get:
 		return _wood
 
-
 var _stone: int = 0
 var stone: int:
 	set(value):
@@ -42,7 +40,6 @@ var stone: int:
 	get:
 		return _stone
 
-
 var _kills: int = 0
 var kills: int:
 	set(value):
@@ -51,6 +48,30 @@ var kills: int:
 			game_ui.kills_display.number = value
 	get:
 		return _kills
+
+var _age: int = 0
+var age: int:
+	set(value):
+		_age = value
+		if game_ui:
+			game_ui.age_number.text = str("Age: ", _age)
+	get:
+		return _age
+
+var _xp: float = 0
+var xp: float:
+	set(value):
+		_xp = value
+		if game_ui:
+			game_ui.age_bar.value = _xp / max_xp * 100
+		
+		if _xp >= max_xp:
+			_xp -= max_xp
+			age += 1
+	get:
+		return _xp
+
+var max_xp: float = 100
 
 func _init() -> void:
 	Global.player_manager = self

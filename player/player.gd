@@ -69,7 +69,6 @@ func client_process(delta: float) -> void:
 	
 	if Input.is_action_pressed("attack") or is_auto_attack:
 		animation_player.play("attack")
-		Global.player_manager.wood += 1
 	
 	if Input.is_action_just_pressed("chat"):
 		text_box.use()
@@ -99,3 +98,9 @@ func client_player_chat(player_chat):
 	print(str("chat data recived", player_chat.id, player_chat.text))
 	if player_chat.id == owner_id:
 		chat.show_message(player_chat.text)
+
+
+
+func _on_area_2d_area_detected(area: Area2D) -> void:
+	Global.player_manager.wood += 1
+	Global.player_manager.xp += 1

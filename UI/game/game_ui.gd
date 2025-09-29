@@ -10,6 +10,7 @@ class_name GameUI
 @onready var kills_display: MaterialDisplay = $KillsDisplay
 
 @onready var age_bar: ProgressBar = $AgeBar
+@onready var age_number: Label = $AgeNumber
 
 @onready var leader_bored: TextEdit = $LeaderBored
 

@@ -21,14 +21,17 @@ grow_vertical = 2
 
 [node name="HostButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "HOST SERVER"
 
 [node name="JoinButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 text = "CLIENT JOIN"
 
 [node name="LineEdit" type="LineEdit" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 24
 placeholder_text = "ENTER USERNAME"
 
 [connection signal="pressed" from="VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]
