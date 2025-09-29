@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dhea3qmpokodb"]
+[gd_scene load_steps=6 format=3 uid="uid://dhea3qmpokodb"]
 
 [ext_resource type="PackedScene" uid="uid://duss0jrbf2g2c" path="res://UI/material_display.tscn" id="1_mp46i"]
 [ext_resource type="Texture2D" uid="uid://de6dyk3atjapq" path="res://UI/icons/Food_Ico.webp" id="2_2oifk"]
 [ext_resource type="Texture2D" uid="uid://ddcw5f7bvsaqq" path="res://UI/icons/Stone_Ico.webp" id="3_dbpsm"]
+[ext_resource type="Texture2D" uid="uid://d4awuyb8d6jiw" path="res://UI/icons/Skull.webp" id="4_dbpsm"]
 [ext_resource type="Texture2D" uid="uid://chqee0hi76sxv" path="res://UI/icons/Gold_Ico.webp" id="4_fy64h"]
 
 [node name="Control" type="Control"]
@@ -81,6 +82,7 @@ offset_top = 181.0
 offset_right = -48.0
 offset_bottom = 217.0
 grow_horizontal = 0
+image = ExtResource("4_dbpsm")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 1
