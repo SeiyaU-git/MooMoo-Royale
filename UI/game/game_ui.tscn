@@ -1,12 +1,14 @@
-[gd_scene load_steps=6 format=3 uid="uid://dhea3qmpokodb"]
+[gd_scene load_steps=8 format=3 uid="uid://dhea3qmpokodb"]
 
-[ext_resource type="PackedScene" uid="uid://duss0jrbf2g2c" path="res://UI/material_display.tscn" id="1_mp46i"]
-[ext_resource type="Texture2D" uid="uid://de6dyk3atjapq" path="res://UI/icons/Food_Ico.webp" id="2_2oifk"]
-[ext_resource type="Texture2D" uid="uid://ddcw5f7bvsaqq" path="res://UI/icons/Stone_Ico.webp" id="3_dbpsm"]
-[ext_resource type="Texture2D" uid="uid://d4awuyb8d6jiw" path="res://UI/icons/Skull.webp" id="4_dbpsm"]
-[ext_resource type="Texture2D" uid="uid://chqee0hi76sxv" path="res://UI/icons/Gold_Ico.webp" id="4_fy64h"]
+[ext_resource type="Script" uid="uid://cttfofmdjmg6j" path="res://UI/game/game_ui.gd" id="1_dqf8c"]
+[ext_resource type="PackedScene" uid="uid://duss0jrbf2g2c" path="res://UI/game/material_display.tscn" id="2_f7k7k"]
+[ext_resource type="Texture2D" uid="uid://de6dyk3atjapq" path="res://UI/icons/Food_Ico.webp" id="3_s5bvh"]
+[ext_resource type="Texture2D" uid="uid://ddcw5f7bvsaqq" path="res://UI/icons/Stone_Ico.webp" id="4_5jup1"]
+[ext_resource type="Texture2D" uid="uid://dps434uxdb2oj" path="res://sprites/Sapling1.webp" id="4_f7k7k"]
+[ext_resource type="Texture2D" uid="uid://d4awuyb8d6jiw" path="res://UI/icons/Skull.webp" id="5_dwmxg"]
+[ext_resource type="Texture2D" uid="uid://chqee0hi76sxv" path="res://UI/icons/Gold_Ico.webp" id="6_jllct"]
 
-[node name="Control" type="Control"]
+[node name="GameUI" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,6 +17,7 @@ offset_top = -3.0
 offset_bottom = -3.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_dqf8c")
 
 [node name="MaterialBox" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -32,18 +35,22 @@ grow_vertical = 0
 theme_override_constants/separation = 10
 alignment = 1
 
-[node name="MaterialDisplay" parent="MaterialBox" instance=ExtResource("1_mp46i")]
+[node name="FoodDisplay" parent="MaterialBox" instance=ExtResource("2_f7k7k")]
 layout_mode = 2
-image = ExtResource("2_2oifk")
+image = ExtResource("3_s5bvh")
+number = 0
 
-[node name="MaterialDisplay2" parent="MaterialBox" instance=ExtResource("1_mp46i")]
+[node name="WoodDisplay" parent="MaterialBox" instance=ExtResource("2_f7k7k")]
 layout_mode = 2
+image = ExtResource("4_f7k7k")
+number = 0
 
-[node name="MaterialDisplay3" parent="MaterialBox" instance=ExtResource("1_mp46i")]
+[node name="StoneDisplay" parent="MaterialBox" instance=ExtResource("2_f7k7k")]
 layout_mode = 2
-image = ExtResource("3_dbpsm")
+image = ExtResource("4_5jup1")
+number = 0
 
-[node name="AgreBar" type="ProgressBar" parent="."]
+[node name="AgeBar" type="ProgressBar" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -72,7 +79,7 @@ text = "1. moomoo
 2. poopoo
 3. unknown"
 
-[node name="MaterialDisplay" parent="." instance=ExtResource("1_mp46i")]
+[node name="KillsDisplay" parent="." instance=ExtResource("2_f7k7k")]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -82,9 +89,10 @@ offset_top = 181.0
 offset_right = -48.0
 offset_bottom = 217.0
 grow_horizontal = 0
-image = ExtResource("4_dbpsm")
+image = ExtResource("5_dwmxg")
+number = 6
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="Map" type="PanelContainer" parent="."]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -95,7 +103,7 @@ offset_right = 218.0
 offset_bottom = -29.0
 grow_vertical = 0
 
-[node name="MaterialDisplay2" parent="." instance=ExtResource("1_mp46i")]
+[node name="GoldDisplay" parent="." instance=ExtResource("2_f7k7k")]
 layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
@@ -105,4 +113,5 @@ offset_top = -288.0
 offset_right = 105.0
 offset_bottom = -252.0
 grow_vertical = 0
-image = ExtResource("4_fy64h")
+image = ExtResource("6_jllct")
+number = 5000

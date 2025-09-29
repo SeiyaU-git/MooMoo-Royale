@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://duss0jrbf2g2c"]
 
-[ext_resource type="Script" uid="uid://b2a1q8h75d38f" path="res://UI/material_display.gd" id="1_hyyga"]
+[ext_resource type="Script" uid="uid://b2a1q8h75d38f" path="res://UI/game/material_display.gd" id="1_hyyga"]
 [ext_resource type="Texture2D" uid="uid://cpcej7qp7iscn" path="res://UI/icons/Wood_Ico.webp" id="1_lfwwp"]
 
 [node name="MaterialDisplay" type="PanelContainer"]
 script = ExtResource("1_hyyga")
-image = ExtResource("1_lfwwp")
+number = null
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

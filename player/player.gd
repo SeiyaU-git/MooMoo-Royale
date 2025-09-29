@@ -69,6 +69,7 @@ func client_process(delta: float) -> void:
 	
 	if Input.is_action_pressed("attack") or is_auto_attack:
 		animation_player.play("attack")
+		Global.player_manager.wood += 1
 	
 	if Input.is_action_just_pressed("chat"):
 		text_box.use()

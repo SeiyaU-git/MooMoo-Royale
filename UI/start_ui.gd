@@ -2,7 +2,7 @@ extends Control
 
 @onready var line_edit: LineEdit = $VBoxContainer/LineEdit
 
-const GAME_UI = preload("uid://dhea3qmpokodb")
+const PLAYER_MANAGER = preload("uid://b0ytgbppoxn1x")
 
 func _on_host_button_pressed() -> void:
 	hide()
@@ -22,4 +22,4 @@ func _on_join_button_pressed() -> void:
 	
 	ClientNetworkGlobals.player_creation_request(ClientNetworkGlobals.id, client_name)
 	
-	Layer.load_ui(GAME_UI)
+	Layer.root.add_child(PLAYER_MANAGER.instantiate())

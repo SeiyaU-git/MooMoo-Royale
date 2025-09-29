@@ -21,6 +21,12 @@ ServerNetworkGlobals="*res://networking/server_network_globals.gd"
 ClientNetworkGlobals="*res://networking/client_network_globals.gd"
 NetworkHandler="*res://networking/network_handler.gd"
 Layer="*res://utilities/layers/layer.gd"
+Global="*res://utilities/global.gd"
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/scale=0.7
 
 [input]
 
