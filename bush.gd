@@ -16,7 +16,7 @@ func _process(delta: float) -> void:
 func receive_hit(damage_data: Dictionary = {}, is_authority: bool = false):
 	# Shake the sprite in a random direction
 	sprite_2d.position = Vector2.RIGHT.rotated(randf() * TAU) * 20
-	stun_frames = 3
+	stun_frames = 5
 	
 	var _inst = EFFECT_PLAYER.instantiate()
 	get_parent().add_child(_inst)

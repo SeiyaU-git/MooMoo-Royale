@@ -117,7 +117,7 @@ func client_handle_player_transformation(player_transformation: PlayerTransforma
 
 func client_player_attack(player_attack: PlayerAttackPacket):
 	if owner_id == player_attack.id:
-		animation_player.play("attack2")
+		animation_player.play("Slash1")
 
 func client_player_chat(player_chat):
 	print(str("chat data recived", player_chat.id, player_chat.text))

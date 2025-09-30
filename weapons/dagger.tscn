@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://nek1hs3wgmnw"]
+
+[ext_resource type="Script" uid="uid://dnkwmls3got4f" path="res://weapons/dagger.gd" id="1_egcwm"]
+[ext_resource type="Texture2D" uid="uid://djy6s5r0mcuo5" path="res://sprites/Dagger.png" id="2_hxo6o"]
+[ext_resource type="Script" uid="uid://cps4asihkmgnm" path="res://player/attack_hitbox.gd" id="3_6qkyx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_j7gg5"]
+size = Vector2(212, 20)
+
+[node name="Dagger" type="Node2D"]
+script = ExtResource("1_egcwm")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(83, -1)
+texture = ExtResource("2_hxo6o")
+
+[node name="AttackArea" type="Area2D" parent="."]
+position = Vector2(-16, 0)
+script = ExtResource("3_6qkyx")
+metadata/_custom_type_script = "uid://cps4asihkmgnm"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(96, 0)
+shape = SubResource("RectangleShape2D_j7gg5")

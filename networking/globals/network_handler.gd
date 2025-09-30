@@ -60,7 +60,7 @@ func handle_server_events():
 		packet_event = connection.service()
 		event_type = packet_event[0]
 
-func start_server(ip_address: String = "192.168.68.149", port: int = 52069) -> void:
+func start_server(ip_address: String = "192.168.68.128", port: int = 52069) -> void:
 	connection = ENetConnection.new()
 	var error: Error = connection.create_host_bound(ip_address, port)
 	if error:
@@ -118,7 +118,7 @@ func handle_client_events():
 		event_type = packet_event[0]
 
 
-func start_client(ip_address: String = "192.168.68.149", port: int = 52069) -> void:
+func start_client(ip_address: String = "192.168.68.128", port: int = 52069) -> void:
 	connection = ENetConnection.new()
 	var error: Error = connection.create_host(1)
 	if error:
