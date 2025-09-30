@@ -88,9 +88,8 @@ health_bar = NodePath("Control/ProgressBar")
 [node name="Body" type="Node2D" parent="."]
 
 [node name="ToolSprite" type="Sprite2D" parent="Body"]
-position = Vector2(54.000004, 15)
+position = Vector2(77.33333, 29.333334)
 rotation = 0.013345718
-scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_qjkh3")
 
 [node name="Area2D" type="Area2D" parent="Body/ToolSprite"]
@@ -111,7 +110,7 @@ shape = SubResource("CapsuleShape2D_qjkh3")
 [node name="PlayerSprite" type="Sprite2D" parent="Body"]
 position = Vector2(-3.8146973e-06, -9.536743e-07)
 rotation = -1.5707964
-scale = Vector2(0.20000002, 0.20000002)
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_g1dw6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -165,10 +164,10 @@ one_shot = true
 
 [node name="ProgressBar" type="ProgressBar" parent="Control"]
 layout_mode = 0
-offset_left = -54.666668
-offset_top = -57.333336
-offset_right = 56.000004
-offset_bottom = -30.333336
+offset_left = -126.66667
+offset_top = -56.00001
+offset_right = 128.0
+offset_bottom = -29.000011
 value = 100.0
 show_percentage = false
 

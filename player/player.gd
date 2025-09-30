@@ -26,6 +26,8 @@ func _enter_tree() -> void:
 	
 	ClientNetworkGlobals.handle_player_chat.connect(client_player_chat)
 	#ServerNetworkGlobals.handle_player_chat.connect(player_chat)
+	ClientNetworkGlobals.handle_player_attack.connect(client_player_attack)
+	
 	name_label.text = str(player_name)
 	
 	if is_authority:
@@ -76,8 +78,6 @@ func client_process(delta: float) -> void:
 	
 	if Input.is_action_just_pressed("chat"):
 		text_box.use()
-	
-
 
 func client_physics(delta: float) -> void:
 	var input_vector = Input.get_vector("left", "right", "up", "down").normalized()
@@ -113,12 +113,14 @@ func client_handle_player_transformation(player_transformation: PlayerTransforma
 	global_position = player_transformation.position
 	global_rotation = player_transformation.rotation
 
+func client_player_attack(player_attack: PlayerAttackPacket):
+	if owner_id == player_attack.id:
+		animation_player.play("attack")
+
 func client_player_chat(player_chat):
 	print(str("chat data recived", player_chat.id, player_chat.text))
 	if player_chat.id == owner_id:
 		chat.show_message(player_chat.text)
-
-
 
 func _on_area_2d_area_detected(area: Area2D) -> void:
 	var damage_data := {}

@@ -1,13 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cccds5jrulqvt"]
+[gd_scene load_steps=4 format=3 uid="uid://cccds5jrulqvt"]
 
 [ext_resource type="Script" uid="uid://cpo0e1ius7kao" path="res://bush.gd" id="1_28u5p"]
 [ext_resource type="Texture2D" uid="uid://dps434uxdb2oj" path="res://sprites/Sapling1.webp" id="1_brfkd"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nnvrw"]
 radius = 149.40549
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_28u5p"]
-radius = 179.201
 
 [node name="Bush" type="StaticBody2D"]
 collision_layer = 3
@@ -22,11 +19,9 @@ position = Vector2(-2, 8)
 shape = SubResource("CircleShape2D_nnvrw")
 
 [node name="Area2D" type="Area2D" parent="."]
-visible = false
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("1_28u5p")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("CircleShape2D_28u5p")
-debug_color = Color(0.580559, 0.55216795, 0, 0.41960785)
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+polygon = PackedVector2Array(-5, -196, 61, -125, 166, -121, 148, -22, 206, 53, 115, 110, 97, 203, -5, 157, -98, 198, -123, 99, -210, 58, -152, -24, -170, -121, -64, -117)

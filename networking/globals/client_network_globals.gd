@@ -41,6 +41,8 @@ func on_client_packet(data: PackedByteArray) -> void:
 		
 		PacketInfo.PACKET_TYPE.PLAYER_CHAT:
 			handle_player_chat.emit(PlayerChat.create_from_data(data))
+		PacketInfo.PACKET_TYPE.PLAYER_ATTACK:
+			handle_player_attack.emit(PlayerAttackPacket.create_from_data(data))
 		
 		_:
 			push_error("Packet with index", data[0], "NOT HANDLED")
