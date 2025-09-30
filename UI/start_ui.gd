@@ -1,6 +1,6 @@
 extends Control
 
-@onready var line_edit: LineEdit = $VBoxContainer/LineEdit
+@export var name_edit: LineEdit
 
 const PLAYER_MANAGER = preload("uid://b0ytgbppoxn1x")
 
@@ -10,7 +10,7 @@ func _on_host_button_pressed() -> void:
 
 
 func _on_join_button_pressed() -> void:
-	var client_name: String = line_edit.text
+	var client_name: String = name_edit.text
 	
 	hide()
 	NetworkHandler.start_client()

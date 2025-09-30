@@ -78,3 +78,4 @@ func _init() -> void:
 
 func _ready() -> void:
 	game_ui = Layer.load_ui(GAME_UI, true)
+	Global.game_ui = game_ui

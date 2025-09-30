@@ -44,9 +44,11 @@ func _process(delta: float) -> void:
 	
 	ui_stuff.rotation = -global_rotation
 
+func _physics_process(delta: float) -> void:
+	if is_authority: 
+		client_physics(delta)
+
 func client_process(delta: float) -> void:
-	global_position += Input.get_vector("left", "right", "up", "down") * delta * 400
-	
 	if Input.is_action_just_pressed("lock_direction"):
 		is_xlock = ! is_xlock
 		if is_xlock:
@@ -64,16 +66,28 @@ func client_process(delta: float) -> void:
 	if not (animation_player.current_animation == "attack" or is_xlock):
 		look_at(get_global_mouse_position())
 	
-	var packet: PlayerTransformation = PlayerTransformation.create(owner_id, global_position, global_rotation)
-	packet.send(NetworkHandler.server_peer)
-	
 	if Input.is_action_pressed("attack") or is_auto_attack:
 		animation_player.play("attack")
 	
 	if Input.is_action_just_pressed("chat"):
 		text_box.use()
 	
-	Layer.camera.global_position = global_position
+
+
+func client_physics(delta: float) -> void:
+	var input_vector = Input.get_vector("left", "right", "up", "down").normalized()
+	var motion = input_vector * 400 * delta
+
+	var collision = move_and_collide(motion)
+	if collision:
+		# slide along the collider normal
+		motion = motion.slide(collision.get_normal())
+		move_and_collide(motion)
+	
+	var packet: PlayerTransformation = PlayerTransformation.create(owner_id, global_position, global_rotation)
+	packet.send(NetworkHandler.server_peer)
+	
+	Layer.camera.global_position = lerp(Layer.camera.global_position, global_position, 0.1)
 
 func server_handle_player_transformation(peer_id: int, player_transformation: PlayerTransformation) -> void:
 	if owner_id != peer_id:
@@ -101,11 +115,6 @@ func client_player_chat(player_chat):
 
 
 
-func _on_area_2d_area_detected(area: MaterialArea) -> void:
-	if not is_authority:
-		return
-	
-	area.receive_hit()
-	
-	Global.player_manager.wood += 1
-	Global.player_manager.xp += 1
+func _on_area_2d_area_detected(area: Area2D) -> void:	
+	if area is MaterialArea:
+		area.receive_hit({}, is_authority)

@@ -30,10 +30,12 @@ func spawn_player(id: int, player_name: String) -> void:
 	ids_spawned.append(id)
 	var player = PLAYER.instantiate()
 	player.owner_id = id
-	player.player_name = str(player_name, id) # CHANGE LATER
+	player.player_name = str(player_name) # CHANGE LATER
 	
 	Layer.call_deferred("add_element", player, Layer.entity)
 	print("PLAYER SPAWNED")
+	if Global.game_ui:
+		Global.game_ui.leader_bored.text += str("\n", player.owner_id, ": ", player.player_name)
 
 func delete_player(peer_id: int) -> void:
 	ids_spawned.erase(peer_id)

@@ -11,6 +11,10 @@ func _ready() -> void:
 	area_entered.connect(_on_area_entered)
 	# Optional: connect our custom signal somewhere
 	area_detected.connect(on_area_detected)
+	if detect_areas:
+		enable_monitoring()
+	else:
+		disable_monitoring()
 
 func enable_monitoring() -> void:
 	monitoring = true

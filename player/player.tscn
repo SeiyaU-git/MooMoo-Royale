@@ -11,7 +11,7 @@
 radius = 53.748363
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qjkh3"]
-height = 160.04506
+height = 35.611702
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_onrkg"]
 radius = 39.051247
@@ -72,6 +72,8 @@ _data = {
 
 [node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("ui_stuff", "name_label", "text_box", "chat")]
 scale = Vector2(0.75, 0.75)
+motion_mode = 1
+platform_floor_layers = 4294967041
 script = ExtResource("1_rkbax")
 ui_stuff = NodePath("Control")
 name_label = NodePath("Control/NameLabel")
@@ -98,7 +100,7 @@ shape = SubResource("CircleShape2D_qjkh3")
 debug_color = Color(0.9977123, 0, 0.17001125, 0.41960785)
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Body/ToolSprite/Area2D"]
-position = Vector2(-10.2819395, -104.31651)
+position = Vector2(-9.629501, -55.431976)
 shape = SubResource("CapsuleShape2D_qjkh3")
 
 [node name="PlayerSprite" type="Sprite2D" parent="Body"]

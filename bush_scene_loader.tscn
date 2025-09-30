@@ -35,3 +35,7 @@ position = Vector2(-380, 544)
 
 [node name="Bush8" parent="ArenaLayerLoader" instance=ExtResource("3_hg7wg")]
 position = Vector2(-260, 1297)
+
+[node name="Bush" parent="." instance=ExtResource("3_hg7wg")]
+position = Vector2(463.99997, 706)
+rotation = -0.5235988
