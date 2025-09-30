@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dhea3qmpokodb"]
+[gd_scene load_steps=9 format=3 uid="uid://dhea3qmpokodb"]
 
 [ext_resource type="Script" uid="uid://cttfofmdjmg6j" path="res://UI/game/game_ui.gd" id="1_dqf8c"]
 [ext_resource type="PackedScene" uid="uid://duss0jrbf2g2c" path="res://UI/game/material_display.tscn" id="2_f7k7k"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dps434uxdb2oj" path="res://sprites/Sapling1.webp" id="4_f7k7k"]
 [ext_resource type="Texture2D" uid="uid://d4awuyb8d6jiw" path="res://UI/icons/Skull.webp" id="5_dwmxg"]
 [ext_resource type="Texture2D" uid="uid://chqee0hi76sxv" path="res://UI/icons/Gold_Ico.webp" id="6_jllct"]
+[ext_resource type="Script" uid="uid://kfyv1p0we3an" path="res://UI/value_label.gd" id="6_s5bvh"]
 
 [node name="GameUI" type="Control"]
 layout_mode = 3
@@ -38,17 +39,14 @@ alignment = 1
 [node name="FoodDisplay" parent="MaterialBox" instance=ExtResource("2_f7k7k")]
 layout_mode = 2
 image = ExtResource("3_s5bvh")
-number = 0
 
 [node name="WoodDisplay" parent="MaterialBox" instance=ExtResource("2_f7k7k")]
 layout_mode = 2
 image = ExtResource("4_f7k7k")
-number = 0
 
 [node name="StoneDisplay" parent="MaterialBox" instance=ExtResource("2_f7k7k")]
 layout_mode = 2
 image = ExtResource("4_5jup1")
-number = 0
 
 [node name="AgeNumber" type="Label" parent="."]
 layout_mode = 1
@@ -63,8 +61,11 @@ offset_right = 58.0
 offset_bottom = -132.0
 grow_horizontal = 2
 grow_vertical = 0
-text = "Age: "
+text = "Age: 0 "
 horizontal_alignment = 1
+script = ExtResource("6_s5bvh")
+text_label = "Age"
+metadata/_custom_type_script = "uid://kfyv1p0we3an"
 
 [node name="AgeBar" type="ProgressBar" parent="."]
 layout_mode = 1
@@ -136,9 +137,13 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -19.0
-offset_top = 26.0
-offset_right = 21.0
-offset_bottom = 49.0
+offset_left = -13.0
+offset_top = 27.0
+offset_right = 39.0
+offset_bottom = 50.0
 grow_horizontal = 2
-text = "Ping: "
+text = "Ping: 0 ms"
+script = ExtResource("6_s5bvh")
+text_label = "Ping"
+unit = "ms"
+metadata/_custom_type_script = "uid://kfyv1p0we3an"

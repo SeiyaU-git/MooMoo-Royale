@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://0ngufuh5fgsg"]
+
+[ext_resource type="Script" uid="uid://dhwlbecxp6txf" path="res://effect_player.gd" id="1_u2xrm"]
+
+[sub_resource type="Gradient" id="Gradient_iobvw"]
+offsets = PackedFloat32Array(0, 0.3614035)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="EffectPlayer" type="Node2D"]
+z_index = 5
+script = ExtResource("1_u2xrm")
+
+[node name="HitEffect" type="CPUParticles2D" parent="."]
+scale = Vector2(4, 4)
+emitting = false
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 36.15
+initial_velocity_max = 96.39
+scale_amount_min = 7.0
+scale_amount_max = 12.0
+color_ramp = SubResource("Gradient_iobvw")
+
+[node name="Timer" type="Timer" parent="."]

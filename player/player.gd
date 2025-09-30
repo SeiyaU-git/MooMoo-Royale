@@ -1,7 +1,7 @@
 extends CharacterBody2D
 class_name Player
 
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var animation_player: AnimationPlayer = $Body/AnimationPlayer
 
 @export var ui_stuff: Control
 @export var name_label: Label
@@ -19,6 +19,8 @@ var is_authority: bool:
 
 var is_xlock := false
 var is_auto_attack := false
+
+
 
 func _enter_tree() -> void:
 	ServerNetworkGlobals.handle_player_transformation.connect(server_handle_player_transformation)
@@ -115,17 +117,9 @@ func client_handle_player_transformation(player_transformation: PlayerTransforma
 
 func client_player_attack(player_attack: PlayerAttackPacket):
 	if owner_id == player_attack.id:
-		animation_player.play("attack")
+		animation_player.play("attack2")
 
 func client_player_chat(player_chat):
 	print(str("chat data recived", player_chat.id, player_chat.text))
 	if player_chat.id == owner_id:
 		chat.show_message(player_chat.text)
-
-func _on_area_2d_area_detected(area: Area2D) -> void:
-	var damage_data := {}
-	damage_data.damage = 20
-	if area is MaterialArea:
-		area.receive_hit(damage_data, is_authority)
-	else:
-		area.receive_hit(damage_data, is_authority)

@@ -54,7 +54,7 @@ var age: int:
 	set(value):
 		_age = value
 		if game_ui:
-			game_ui.age_number.text = str("Age: ", _age)
+			game_ui.age_number.number = _age
 	get:
 		return _age
 
@@ -71,7 +71,7 @@ var xp: float:
 	get:
 		return _xp
 
-var max_xp: float = 100
+var max_xp: float = 10
 
 func _init() -> void:
 	Global.player_manager = self
@@ -79,5 +79,6 @@ func _init() -> void:
 func _ready() -> void:
 	game_ui = Layer.load_ui(GAME_UI, true)
 	Global.game_ui = game_ui
-	
-	Global.game_ui.ping_display.text = str("Ping: ", NetworkHandler.server_peer.get_statistic(ENetPacketPeer.PEER_ROUND_TRIP_TIME), " ms")
+
+func _process(delta: float) -> void:
+	game_ui.ping_display.number = NetworkHandler.server_peer.get_statistic(ENetPacketPeer.PEER_ROUND_TRIP_TIME)

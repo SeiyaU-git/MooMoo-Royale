@@ -1,21 +1,26 @@
-[gd_scene load_steps=15 format=3 uid="uid://bgbnvi0fmetc3"]
+[gd_scene load_steps=16 format=3 uid="uid://bgbnvi0fmetc3"]
 
 [ext_resource type="Script" uid="uid://ogp06r8rl611" path="res://player/player.gd" id="1_rkbax"]
-[ext_resource type="Texture2D" uid="uid://bxrum1pfifclx" path="res://sprites/Coolplayer.webp" id="2_g1dw6"]
-[ext_resource type="Texture2D" uid="uid://ok1n75j0ffvu" path="res://sprites/Hammer_1.webp" id="2_qjkh3"]
+[ext_resource type="PackedScene" uid="uid://bnhhr8l5w8dkn" path="res://weapons/tool_hammer.tscn" id="2_g6k8r"]
+[ext_resource type="Script" uid="uid://b3lkwoani8pfv" path="res://player/body.gd" id="2_rgyib"]
 [ext_resource type="Script" uid="uid://dx5unuvq6h1lu" path="res://player/chat.gd" id="3_g1dw6"]
-[ext_resource type="Script" uid="uid://7yo1x3lyjw57" path="res://utilities/monitoring_area.gd" id="3_g6k8r"]
+[ext_resource type="Texture2D" uid="uid://mn3vilowyne" path="res://sprites/Coolplayer.png" id="3_g6k8r"]
 [ext_resource type="Script" uid="uid://dktmo8qofvyw" path="res://player/text_box.gd" id="3_yw30f"]
+[ext_resource type="Script" uid="uid://cq7ncyvflf2x2" path="res://weapons/attack_animation.gd" id="4_boad6"]
 [ext_resource type="Script" uid="uid://dj2e4xp6retpl" path="res://player/hurt_box.gd" id="7_boad6"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_qjkh3"]
-radius = 53.748363
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qjkh3"]
-height = 35.611702
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_onrkg"]
 radius = 39.051247
+
+[sub_resource type="GDScript" id="GDScript_g6k8r"]
+script/source = "extends Sprite2D
+class_name PlayerHand
+
+@onready var marker_2d: Marker2D = $Marker2D
+
+func hand_position() -> Vector2:
+	return position + marker_2d.position
+"
 
 [sub_resource type="Animation" id="Animation_g6k8r"]
 length = 0.001
@@ -30,6 +35,42 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Body/HandR:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(54.66667, 45.333336)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body/HandL:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(35.321495, -53.63615)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Body/AnimationPlayer:dealting_damage")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_qjkh3"]
@@ -47,28 +88,65 @@ tracks/0/keys = {
 "update": 0,
 "values": [0.0, -1.5707963267948966, 0.0]
 }
-tracks/1/type = "method"
+
+[sub_resource type="Animation" id="Animation_boad6"]
+resource_name = "attack2"
+length = 0.50000167
+step = 0.016666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Body:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.08330444, 0.13333334, 0.43333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.7853981633974483, -0.7853981633974483, -0.7853981633974483, 0.0]
+}
+tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Body/ToolSprite/Area2D")
+tracks/1/path = NodePath("Body/HandR:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"values": [{
-"args": [],
-"method": &"enable_monitoring"
-}, {
-"args": [],
-"method": &"disable_monitoring"
-}]
+"times": PackedFloat32Array(0, 0.08662094, 0.13333334, 0.43330607),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(54.66667, 45.333336), Vector2(100.000015, -22.666664), Vector2(100.000015, -22.666664), Vector2(54.66667, 45.333336)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Body/HandL:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.08662094, 0.13333334, 0.43333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(35.321495, -53.63615), Vector2(48, -82.666664), Vector2(48, -82.666664), Vector2(35.321495, -53.63615)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Body/AnimationPlayer:dealting_damage")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_g6k8r"]
 _data = {
 &"RESET": SubResource("Animation_g6k8r"),
-&"attack": SubResource("Animation_qjkh3")
+&"attack": SubResource("Animation_qjkh3"),
+&"attack2": SubResource("Animation_boad6")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g6k8r"]
@@ -85,37 +163,50 @@ text_box = NodePath("Control/TextBox")
 chat = NodePath("Control/Chat")
 health_bar = NodePath("Control/ProgressBar")
 
-[node name="Body" type="Node2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_onrkg")
 
-[node name="ToolSprite" type="Sprite2D" parent="Body"]
-position = Vector2(77.33333, 29.333334)
-rotation = 0.013345718
-texture = ExtResource("2_qjkh3")
+[node name="Body" type="Node2D" parent="." node_paths=PackedStringArray("handr", "handl", "body", "animation_player")]
+script = ExtResource("2_rgyib")
+handr = NodePath("HandR")
+handl = NodePath("HandL")
+body = NodePath("Body")
+animation_player = NodePath("AnimationPlayer")
 
-[node name="Area2D" type="Area2D" parent="Body/ToolSprite"]
-position = Vector2(-2.3914583, 70.59376)
-collision_layer = 0
-collision_mask = 2
-script = ExtResource("3_g6k8r")
-metadata/_custom_type_script = "uid://7yo1x3lyjw57"
+[node name="ToolHammer" parent="Body" instance=ExtResource("2_g6k8r")]
+position = Vector2(-164.62883, 33.227066)
+rotation = -0.7034312
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Body/ToolSprite/Area2D"]
-shape = SubResource("CircleShape2D_qjkh3")
-debug_color = Color(0.9977123, 0, 0.17001125, 0.41960785)
+[node name="HandL" type="Sprite2D" parent="Body"]
+position = Vector2(35.321495, -53.63615)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("3_g6k8r")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Body/ToolSprite/Area2D"]
-position = Vector2(-9.629501, -55.431976)
-shape = SubResource("CapsuleShape2D_qjkh3")
+[node name="Marker2D" type="Marker2D" parent="Body/HandL"]
+position = Vector2(40.078903, -69.09234)
+gizmo_extents = 63.3
 
-[node name="PlayerSprite" type="Sprite2D" parent="Body"]
-position = Vector2(-3.8146973e-06, -9.536743e-07)
+[node name="HandR" type="Sprite2D" parent="Body"]
+position = Vector2(54.66667, 45.333336)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("3_g6k8r")
+script = SubResource("GDScript_g6k8r")
+
+[node name="Marker2D" type="Marker2D" parent="Body/HandR"]
+position = Vector2(115.55551, 26.666664)
+
+[node name="Body" type="Sprite2D" parent="Body"]
+position = Vector2(-5.086263e-06, 0)
 rotation = -1.5707964
 scale = Vector2(0.3, 0.3)
-texture = ExtResource("2_g1dw6")
+texture = ExtResource("3_g6k8r")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-shape = SubResource("CircleShape2D_onrkg")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Body"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_g6k8r")
+}
+script = ExtResource("4_boad6")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -171,11 +262,6 @@ offset_bottom = -29.000011
 value = 100.0
 show_percentage = false
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_g6k8r")
-}
-
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 2
 collision_mask = 0
@@ -185,5 +271,4 @@ script = ExtResource("7_boad6")
 visible = false
 shape = SubResource("CircleShape2D_g6k8r")
 
-[connection signal="area_detected" from="Body/ToolSprite/Area2D" to="." method="_on_area_2d_area_detected"]
 [connection signal="timeout" from="Control/Chat/Timer" to="Control/Chat" method="_on_timer_timeout"]

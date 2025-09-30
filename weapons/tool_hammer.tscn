@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bnhhr8l5w8dkn"]
+
+[ext_resource type="Script" uid="uid://hd14re0hv2hc" path="res://weapons/tool_hammer.gd" id="1_85nox"]
+[ext_resource type="Texture2D" uid="uid://ok1n75j0ffvu" path="res://sprites/Hammer_1.webp" id="1_iubhx"]
+[ext_resource type="Script" uid="uid://cps4asihkmgnm" path="res://player/attack_hitbox.gd" id="2_85nox"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_05s5q"]
+radius = 51.0
+
+[node name="ToolHammer" type="Node2D"]
+script = ExtResource("1_85nox")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(104, -19)
+rotation = -1.5707964
+texture = ExtResource("1_iubhx")
+
+[node name="AttackArea" type="Area2D" parent="."]
+position = Vector2(172, -19)
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("2_85nox")
+metadata/_custom_type_script = "uid://cps4asihkmgnm"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+position = Vector2(-2, 6)
+shape = SubResource("CircleShape2D_05s5q")

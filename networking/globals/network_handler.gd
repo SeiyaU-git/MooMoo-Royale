@@ -29,13 +29,13 @@ func _process(delta: float) -> void:
 	
 	# HANDLE EVENTS
 	if is_server:
-		handle_server_evens()
+		handle_server_events()
 	else:
-		handle_client_evens()
+		handle_client_events()
 
 
 ########## SERVER ##########
-func handle_server_evens():
+func handle_server_events():
 	var packet_event: Array = connection.service()
 	var event_type: ENetConnection.EventType = packet_event[0]
 
@@ -60,7 +60,7 @@ func handle_server_evens():
 		packet_event = connection.service()
 		event_type = packet_event[0]
 
-func start_server(ip_address: String = "127.0.0.1", port: int = 42069) -> void:
+func start_server(ip_address: String = "192.168.68.149", port: int = 52069) -> void:
 	connection = ENetConnection.new()
 	var error: Error = connection.create_host_bound(ip_address, port)
 	if error:
@@ -90,7 +90,7 @@ func peer_disconnected(peer: ENetPacketPeer) -> void:
 
 
 ########## CLIENT ##########
-func handle_client_evens():
+func handle_client_events():
 	var packet_event: Array = connection.service()
 	var event_type: ENetConnection.EventType = packet_event[0]
 
@@ -118,7 +118,7 @@ func handle_client_evens():
 		event_type = packet_event[0]
 
 
-func start_client(ip_address: String = "127.0.0.1", port: int = 42069) -> void:
+func start_client(ip_address: String = "192.168.68.149", port: int = 52069) -> void:
 	connection = ENetConnection.new()
 	var error: Error = connection.create_host(1)
 	if error:

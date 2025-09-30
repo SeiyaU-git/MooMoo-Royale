@@ -6,7 +6,6 @@
 [node name="MaterialDisplay" type="PanelContainer"]
 script = ExtResource("1_hyyga")
 image = ExtResource("1_lfwwp")
-number = null
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
