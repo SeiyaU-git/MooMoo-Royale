@@ -17,9 +17,9 @@ config/icon="res://sprites/icon.svg"
 
 [autoload]
 
-ServerNetworkGlobals="*res://networking/server_network_globals.gd"
-ClientNetworkGlobals="*res://networking/client_network_globals.gd"
-NetworkHandler="*res://networking/network_handler.gd"
+ServerNetworkGlobals="*res://networking/globals/server_network_globals.gd"
+ClientNetworkGlobals="*res://networking/globals/client_network_globals.gd"
+NetworkHandler="*res://networking/globals/network_handler.gd"
 Layer="*res://utilities/layers/layer.gd"
 Global="*res://utilities/global.gd"
 

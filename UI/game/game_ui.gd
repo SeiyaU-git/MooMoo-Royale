@@ -15,3 +15,5 @@ class_name GameUI
 @onready var leader_bored: TextEdit = $LeaderBored
 
 @onready var map: PanelContainer = $Map
+
+@onready var ping_display: Label = $PingDisplay

@@ -52,18 +52,36 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -8.0
-offset_bottom = 8.0
+offset_left = -249.0
+offset_top = 37.0
+offset_right = -241.0
+offset_bottom = 45.0
 grow_horizontal = 0
 
-[node name="HostButton" type="Button" parent="VScrollBar"]
+[node name="PanelContainer" type="PanelContainer" parent="VScrollBar"]
 layout_mode = 0
-offset_left = -182.0
-offset_top = 19.0
-offset_right = -18.0
-offset_bottom = 61.0
+offset_right = 216.0
+offset_bottom = 277.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VScrollBar/PanelContainer"]
+layout_mode = 2
+
+[node name="HostButton" type="Button" parent="VScrollBar/PanelContainer/VBoxContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "HOST SERVER"
 
+[node name="Label" type="Label" parent="VScrollBar/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "welcome to moomoo royale
+in this game you die
+and get klls
+and yea
+text
+text
+text
+text
+"
+
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer2/JoinButton" to="." method="_on_join_button_pressed"]
-[connection signal="pressed" from="VScrollBar/HostButton" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="VScrollBar/PanelContainer/VBoxContainer/HostButton" to="." method="_on_host_button_pressed"]

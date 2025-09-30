@@ -8,6 +8,10 @@ class_name Player
 @export var text_box: LineEdit
 @export var chat: PanelContainer
 
+@export var health_bar: ProgressBar 
+
+var health: float = 100
+
 var owner_id: int
 var player_name: String
 var is_authority: bool:
@@ -41,7 +45,8 @@ func _process(delta: float) -> void:
 	
 	if is_authority: 
 		client_process(delta)
-	
+		
+	health_bar.value = health
 	ui_stuff.rotation = -global_rotation
 
 func _physics_process(delta: float) -> void:
@@ -66,8 +71,8 @@ func client_process(delta: float) -> void:
 	if not (animation_player.current_animation == "attack" or is_xlock):
 		look_at(get_global_mouse_position())
 	
-	if Input.is_action_pressed("attack") or is_auto_attack:
-		animation_player.play("attack")
+	if (Input.is_action_pressed("attack") or is_auto_attack) and animation_player.current_animation != "attack":
+		PlayerAttackPacket.create(owner_id).send(NetworkHandler.server_peer)
 	
 	if Input.is_action_just_pressed("chat"):
 		text_box.use()
@@ -115,6 +120,10 @@ func client_player_chat(player_chat):
 
 
 
-func _on_area_2d_area_detected(area: Area2D) -> void:	
+func _on_area_2d_area_detected(area: Area2D) -> void:
+	var damage_data := {}
+	damage_data.damage = 20
 	if area is MaterialArea:
-		area.receive_hit({}, is_authority)
+		area.receive_hit(damage_data, is_authority)
+	else:
+		area.receive_hit(damage_data, is_authority)

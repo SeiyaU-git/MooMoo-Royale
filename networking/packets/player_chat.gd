@@ -27,13 +27,6 @@ func encode() -> PackedByteArray:
 	data.append_array(text_bytes)
 
 	return data
-	
-
-# CURRENT DATA ARRANGEMENT
-# [TYPE, ID, POSITION X, POSITION Y, ROTATION] what data
-# [1,    1,  4,          4,          4] space taken
-# [0,    1,  2,          6,          10] index 
-# total 14
 
 func decode(data: PackedByteArray) -> void:
 	super.decode(data)

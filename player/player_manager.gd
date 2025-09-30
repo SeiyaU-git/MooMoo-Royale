@@ -79,3 +79,5 @@ func _init() -> void:
 func _ready() -> void:
 	game_ui = Layer.load_ui(GAME_UI, true)
 	Global.game_ui = game_ui
+	
+	Global.game_ui.ping_display.text = str("Their ping is: ", NetworkHandler.server_peer.get_statistic(ENetPacketPeer.PEER_ROUND_TRIP_TIME), " ms")

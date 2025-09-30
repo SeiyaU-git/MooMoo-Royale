@@ -130,3 +130,15 @@ offset_bottom = -252.0
 grow_vertical = 0
 image = ExtResource("6_jllct")
 number = 5000
+
+[node name="PingDisplay" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -19.0
+offset_top = 26.0
+offset_right = 21.0
+offset_bottom = 49.0
+grow_horizontal = 2
+text = "Ping: "

@@ -6,6 +6,7 @@ signal handle_remote_id_assignment(remote_id: int)
 
 signal handle_player_transformation(player_position: PlayerTransformation)
 signal handle_player_chat(player_chat: PlayerChat)
+signal handle_player_attack(player_attack: PlayerAttackPacket)
 
 signal handle_player_creation(id: int, name: String)
 

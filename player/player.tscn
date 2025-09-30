@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bgbnvi0fmetc3"]
+[gd_scene load_steps=15 format=3 uid="uid://bgbnvi0fmetc3"]
 
 [ext_resource type="Script" uid="uid://ogp06r8rl611" path="res://player/player.gd" id="1_rkbax"]
 [ext_resource type="Texture2D" uid="uid://bxrum1pfifclx" path="res://sprites/Coolplayer.webp" id="2_g1dw6"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dx5unuvq6h1lu" path="res://player/chat.gd" id="3_g1dw6"]
 [ext_resource type="Script" uid="uid://7yo1x3lyjw57" path="res://utilities/monitoring_area.gd" id="3_g6k8r"]
 [ext_resource type="Script" uid="uid://dktmo8qofvyw" path="res://player/text_box.gd" id="3_yw30f"]
+[ext_resource type="Script" uid="uid://dj2e4xp6retpl" path="res://player/hurt_box.gd" id="7_boad6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_qjkh3"]
 radius = 53.748363
@@ -70,7 +71,10 @@ _data = {
 &"attack": SubResource("Animation_qjkh3")
 }
 
-[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("ui_stuff", "name_label", "text_box", "chat")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_g6k8r"]
+radius = 41.354836
+
+[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("ui_stuff", "name_label", "text_box", "chat", "health_bar")]
 scale = Vector2(0.75, 0.75)
 motion_mode = 1
 platform_floor_layers = 4294967041
@@ -79,6 +83,7 @@ ui_stuff = NodePath("Control")
 name_label = NodePath("Control/NameLabel")
 text_box = NodePath("Control/TextBox")
 chat = NodePath("Control/Chat")
+health_bar = NodePath("Control/ProgressBar")
 
 [node name="Body" type="Node2D" parent="."]
 
@@ -90,7 +95,7 @@ texture = ExtResource("2_qjkh3")
 
 [node name="Area2D" type="Area2D" parent="Body/ToolSprite"]
 position = Vector2(-2.3914583, 70.59376)
-collision_layer = 2
+collision_layer = 0
 collision_mask = 2
 script = ExtResource("3_g6k8r")
 metadata/_custom_type_script = "uid://7yo1x3lyjw57"
@@ -110,6 +115,7 @@ scale = Vector2(0.20000002, 0.20000002)
 texture = ExtResource("2_g1dw6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_onrkg")
 
 [node name="Control" type="Control" parent="."]
@@ -157,10 +163,28 @@ layout_mode = 2
 wait_time = 5.0
 one_shot = true
 
+[node name="ProgressBar" type="ProgressBar" parent="Control"]
+layout_mode = 0
+offset_left = -54.666668
+offset_top = -57.333336
+offset_right = 56.000004
+offset_bottom = -30.333336
+value = 100.0
+show_percentage = false
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_g6k8r")
 }
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("7_boad6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+visible = false
+shape = SubResource("CircleShape2D_g6k8r")
 
 [connection signal="area_detected" from="Body/ToolSprite/Area2D" to="." method="_on_area_2d_area_detected"]
 [connection signal="timeout" from="Control/Chat/Timer" to="Control/Chat" method="_on_timer_timeout"]
